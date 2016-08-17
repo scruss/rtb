@@ -1,0 +1,11 @@
+PROC slowp("Hello, world")
+PRINT 
+END 
+DEF PROC slowp(a$)
+FOR i = 1 TO LEN (a$) CYCLE 
+  c$ = MID$ (a$, i - 1, 1)
+  PRINT c$;  
+  UPDATE 
+  WAIT (0.1)
+REPEAT 
+ENDPROC 

@@ -1,0 +1,13 @@
+//
+// factorial:
+//    Recursive factorial generator
+//
+NUMFORMAT (15, 0)
+FOR i = 1 TO 15 CYCLE 
+  PRINT i;  "! = ";  FN factorial(i)
+REPEAT 
+END 
+//
+DEF FN factorial(n)
+IF n = 1 THEN  = 1
+ = n * FN factorial(n - 1)

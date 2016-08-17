@@ -1,0 +1,43 @@
+\chapter{Operator Precedence}
+\index{Operator Precedence}
+
+When evaluating expressions, RTB performs things in a certain order,
+and this order may not be immediately obvious. The reasons for the order
+here are long and complex, but mostly ``because that's how most other
+systems do it''.
+
+When changing programming language, it's always wise to find out what its
+operator precedence rules are - and when in doubt, (use brackets).
+
+\begin{center}
+\begin{tabular}[t]{|c|c|}
+\hline
+& Operator\\
+\hline
+Highest	&\texttt{\^}\\
+\hline
+&\texttt{NOT}\\
+\hline
+&\texttt{*}\hspace{3mm}
+\texttt{/}\hspace{3mm}
+\texttt{MOD}
+\hspace{3mm}
+\texttt{DIV}\\
+\hline
+&\texttt{+}\hspace{3mm}\texttt{-}\\
+\hline
+&\texttt{|}\hspace{3mm}\texttt{\&}\hspace{3mm}\texttt{XOR}\\
+\hline
+&\texttt{<}\hspace{3mm}
+\texttt{<=}\hspace{3mm}
+\texttt{>}\hspace{3mm}
+\texttt{>=}\\
+\hline
+&\texttt{=}\hspace{3mm}
+\texttt{<>}\\
+\hline
+Lowest &\texttt{AND}\hspace{3mm}
+\texttt{OR}\\
+\hline
+\end{tabular}
+\end{center}

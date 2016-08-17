@@ -1,0 +1,64 @@
+\chapter{Flow Control}
+\index{Flow Control}
+Programs are normally executed in line-number order, one after the other.
+There are many ways in which we can alter the flow of our programs, but
+the traditional BASIC ones are the {\tt GOTO} and {\tt GOSUB}
+instructions.
+
+{\tt GOTO}\index{GOTO} as its name implys causes program execution to go to the line
+number listed after the {\tt GOTO} instruction.
+\begin{verbatim}
+  120 GOTO 315
+\end{verbatim}
+
+{\tt GOSUB}\index{GOSUB}\footnote{Go to Subroutine} allows a program to
+temporarily jump to a new point and then, upon execution of the {\tt
+RETURN} statement, flow resumes at the statement after the {\tt GOSUB}
+instruction.
+
+{\tt GOSUB} is designed to be used to allow a piece of code to be executed
+over again from different parts of the main program.
+
+Subroutines can call other subroutines and the number of subroutines that
+can be called is limited only by the memory capacity of the computer -
+some of which is required to keep track of where to return to.
+
+Here is an example -- It's code to print my name:
+\begin{verbatim}
+  500 REM Simple subroutine to print my name
+  510 PRINT "Gordon Henderson"
+  580 RETURN
+\end{verbatim}
+Then, anywhere we need to print my name:
+\begin{verbatim}
+  100 PRINT "Hello ";
+  110 GOSUB 500
+  120 PRINT "Good to meet you ";
+  130 GOSUB 500
+  140 GOTO 100
+\end{verbatim}
+
+Subroutines are a good was of saving and re-using code however there
+are more modern ways of doing this that removes the need to keep track
+of line-numbers.
+
+\section{GOTO and GOSUB -- The great controversy}
+\index{GOTO!Controversy}
+\index{GOSUB!Controversy}
+The use of {\tt GOTO} and {\tt GOSUB} is highly debated and both {\tt
+GOTO} and {\tt GOSUB} should be considered deprecated in their use. It
+is possible to write fully functional RTB programs without using either
+these instructions.
+
+The original version of BASIC did not provide any more means to
+control the flow of your code, however newer programming languages have
+evolved which do help here, and in some areas the use of the {\tt GOTO}
+instruction has been eliminated entirely!
+
+However don't fix the idea in your head that all GOTOs are bad, we
+need to balance things up and note that not everyone thinks that GOTOs
+are bad -- myself included. Very occasionally, a GOTO can get you out
+of a situation in a more elegant manner than some of the constructs
+you'll read about next, so don't be afraid of the GOTO, but instead
+respect\index{GOTO!Respect} it, try not to use it, but if you have to
+use it, then use it well!

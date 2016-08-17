@@ -1,0 +1,92 @@
+\documentclass[12pt,a4paper,onecolumn,oneside]{book}
+%\usepackage{draftcopy}
+\reversemarginpar
+\newcommand{\meek}{\marginpar[\hfill\fbox{!}]{\fbox{!}}}
+\parskip 1.5ex
+%\parindent 1.5em
+%\thispagestyle{empty}
+%\pagestyle{plain}
+%\pagenumbering{arabic}
+%\setlength{\topmargin}{0pt}
+%\setlength{\headheight}{0pt}
+%\setlength{\headsep}{0pt}
+%\setlength{\topskip}{0pt}
+\setlength{\textheight}{220mm}
+%\setlength{\footskip}{5ex}
+\setlength{\oddsidemargin}{0pt}
+\setlength{\evensidemargin}{0pt}
+\setlength{\textwidth}{160mm}
+\usepackage[dvips]{graphics,color}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\newcounter{ch-variables}
+\newcounter{ch-variables-page}
+\newcounter{teaMakePage}
+\newcounter{seedVariable}
+\makeindex
+\begin{document}
+\begin{sffamily}
+
+\definecolor{rtb-black}{rgb}  {0.0, 0.0, 0.0}
+\definecolor{rtb-navy}{rgb}   {0.0, 0.0, 0.5}
+\definecolor{rtb-green}{rgb}  {0.0, 0.5, 0.0}
+\definecolor{rtb-teal}{rgb}   {0.0, 0.5, 0.5}
+\definecolor{rtb-maroon}{rgb} {0.5, 0.0, 0.0}
+\definecolor{rtb-purple}{rgb} {0.5, 0.0, 0.5}
+\definecolor{rtb-olive}{rgb}  {0.5, 0.5, 0.0}
+\definecolor{rtb-silver}{rgb} {0.7, 0.7, 0.7}
+\definecolor{rtb-grey}{rgb}   {0.5, 0.5, 0.5}
+\definecolor{rtb-blue}{rgb}   {0.0, 0.0, 1.0}
+\definecolor{rtb-lime}{rgb}   {0.0, 1.0, 0.0}
+\definecolor{rtb-aqua}{rgb}   {0.0, 1.0, 1.0}
+\definecolor{rtb-red}{rgb}    {1.0, 0.0, 0.0}
+\definecolor{rtb-fuchsia}{rgb}{1.0, 0.0, 1.0}
+\definecolor{rtb-yellow}{rgb} {1.0, 1.0, 0.0}
+\definecolor{rtb-white}{rgb}  {1.0, 1.0, 1.0}
+
+\begin{titlepage}
+\title{Return to Basic\\Reference Manual}
+\author{Gordon Henderson\\gordon@drogon.net\\
+\copyright 2012}
+%\date{January 2012}
+\maketitle
+\end{titlepage}
+
+\frontmatter
+\pagestyle{plain}
+\include{preface}
+\tableofcontents
+\mainmatter
+\pagestyle{headings}
+\include{ch-intro}
+\include{ch-rtb-environment}
+\include{ch-command-line}
+\include{ch-im-commands}
+\include{ch-comments}
+\include{ch-flow-control}
+\include{ch-variables}
+\include{ch-inputOutput}
+\include{ch-data}
+\include{ch-builtin-variables}
+\include{ch-conditionals}
+\include{ch-loops}
+\include{ch-procFns}
+\include{ch-numericFns}
+\include{ch-stringFns}
+\include{ch-graphicProcFns}
+\include{ch-userProcFn}
+%\addtocontents{toc}{\noindent Foo}
+\appendix
+\include{ap-colours}
+\include{ap-numbers}
+\include{ap-fileFns}
+\include{ap-serial}
+\include{ap-pi}
+\include{ap-drc}
+
+\backmatter
+
+\include{index}
+
+\end{sffamily}
+\end{document}

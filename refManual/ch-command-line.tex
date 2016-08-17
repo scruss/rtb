@@ -1,0 +1,53 @@
+\chapter{The command-line}\index{Command line}
+The command line is the general term for typing commands and 
+program lines into the system, however it has a few features to
+make your life easier.
+
+\section{Editing}\index{Command line!Editing}
+As you type characters into the system, you may make mistakes. To correct
+them you can use several differenet keys. The important one is probably
+the {\tt Backspace} key. Usually a big key to the top-right of the main
+keyboard with an arrow pointing to the left. This will erase characters
+you've typed and move the cursor to the left, however there are more
+efficient ways to deal with the like you're typing noted below.
+
+Some of  the command characters lsited below you access with the {\tt
+Control} key. This is labelled as {\tt Ctrl} on most keyboards and
+works like the {\tt Shift} keys in that you push it, keep it pushed,
+then type another character before releasing them both.
+
+\begin{description}
+\item[{\tt Ctrl-A}, {\tt Ctrl-E}:] Move the cursor to the start or the
+end of the line respectively. You can also use the {\tt Home} and {\tt End}
+keys if your keyboard has them.
+\item[{\tt $\leftarrow$ (Left)} and {\tt $\rightarrow$ (Right)}:] arrow
+keys (not to be confused with the {\tt Backspace} key) move the cursor
+one character to the left or right of the typed line.
+\item[{\tt Ctrl-D}:] Delete the character under the cursor. You can also
+use the {\tt Del} or {\tt Delete} key if your keyboard has one.
+\item[{\tt Backspace}:] Deletes the character to the Left of the cursor)
+\item[{\tt Ctrl-S}:] Swap the character under the cursor with the character
+immediately to the right. Handy for those who type the as teh like me\dots
+\item[{\tt Ctrl-F}:] Find the next occurance of the next character typed.
+E.g. {\tt Ctrl-F} followed by {\tt G} will make the cursor jump to
+the next {\tt G} in the line. {\tt Ctrl-F} followed by another {\tt
+Ctrl-F} will repeat the last find. 
+\item[{\tt Esc}:] Abandon entering this entire line.
+\end{description}
+
+\section{History}
+\index{Command line!History}
+The RTB command line remembers the past 50 lines that you type in,
+and you can use the $\uparrow$ ({\tt Up}) and $\downarrow$ ({\tt Down})
+arrow keys on your keyboard to scroll through past things you've typed
+in. This will enable you to quickly fix a mistake in a line already
+in the system, or a line you typed in which remoted an error after you
+pressed the {\em Enter} key.
+
+\section{Editing program lines}
+\index{Command line!Edit program lines}
+If you spot a mistake in a program line and you can't find it in the
+history, then you can enter the {\tt ED} command followed by the line
+number. E.g. {\tt ED 10} will then present line 10 as if you had
+re-typed it, but not yet pressed {\em Enter} so you can change the line
+as required.

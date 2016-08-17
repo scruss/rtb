@@ -1,0 +1,21 @@
+//
+// Find a line in a file
+//
+INPUT "Filename ?", name$
+INPUT "Line ?", ln
+x = OPENIN (name$)
+IF x = -1 THEN 
+  PRINT "File not found"
+  STOP 
+ENDIF 
+FOR i = 1 TO ln CYCLE 
+  IF EOF (x) THEN 
+    PRINT "Not enough lines!"
+    STOP 
+  ENDIF 
+  INPUT# x, l$
+REPEAT 
+PRINT "Line ";  ln;  " is:"
+PRINT "<";  l$;  ">"
+CLOSE (x)
+END 

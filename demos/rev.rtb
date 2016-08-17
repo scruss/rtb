@@ -1,0 +1,21 @@
+//
+// Recursive string reversal test
+//
+PRINT 
+PRINT "String reversal test"
+CYCLE 
+  INPUT "What is your name? ", name$
+  IF LEN (name$) <> 0 THEN BREAK 
+  PRINT "Please type something..."
+REPEAT 
+x$ = FN rev(name$)
+PRINT "Hello, ";  x$
+END 
+//
+// FN rev:
+//    A reversed string is the last character of the string
+//    followed by the rest of the string, reversed.
+//
+DEF FN rev(s$)
+IF LEN (s$) = 1 THEN  = s$
+ = RIGHT$ (s$, 1) + FN rev(LEFT$ (s$, LEN (s$) - 1))

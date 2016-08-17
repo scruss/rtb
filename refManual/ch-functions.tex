@@ -1,0 +1,138 @@
+\chapter{Functions}
+\index{Functions}
+A function is very much like a predefined mini-program that processes
+some data and returns a result. The result can then be used in more
+calculations or printed out.
+
+Most functions deal with complex mathematical operations -- if this is
+a bit beyond your abilities then just skip over it -- it's not that
+important for now, but there are also functions that deal with string
+variables.
+
+Functions often take parameters (often called {\em arguments}), and
+these must be enclosed them in brackets. 
+
+As well as the functions that are built into RTB, you can also write your
+own functions and we'll be looking at how to do that in a later chapter.
+
+\section{Numerical Functions}
+\index{Functions!Numerical}
+Our first example is the square root function and it's defined as {\tt
+SQRT}\index{SQRT}. So to print the square root of nine, ($\sqrt{9}$)
+then in immediate mode, enter:
+
+\begin{verbatim}
+  ? SQRT (9)
+\end{verbatim}
+It should print {\tt 3}.  Try this:
+\begin{verbatim}
+  ? SQRT (9) * SQRT (9)
+\end{verbatim}
+It should print {\tt 9}. 
+
+Other built-in numerical functions are {\tt SIN}\index{SIN}, {\tt
+COS}\index{COS}, {\tt TAN}\index{TAN} and their counterparts,
+{\tt ASIN}\index{ASIN}, {\tt ACOS}\index{ACOS} and {\tt
+ATAN}\index{ATAN}. These perform the usual trigonometric functions, with
+{\tt LOG}\index{LOG} and {\tt EXP}\index{EXP} being natural logarithm
+and it's inverse. These are the main ones -- there are a few more,
+just look in the reference section.
+
+\subsection{Angles}
+\index{Angles}
+RTB starts by default using degrees as it's measurement of angles. You can
+switch modes using the following commands: {\tt DEG}\index{Angles!DEG},
+{\tt RAD}\index{Angles!RAD} or {\tt CLOCK}\index{Angles!CLOCK}. The
+first two selects degrees\index{Degrees} or radians\index{Radians} as
+the angular unit of measurement (360$^{\circ}$ in a circle, or 2$\pi$
+radians) the last selects clock\index{Clock} mode where there are 60
+minutes in a full circle. This is intended to make it easier to visualise
+angles when using the turtle drawing functions\footnote{Although in these
+modern times of digital watches\index{Digital Watch}, who knows what
+makes sense anymore!}.
+
+There are 90$^{\circ}$ or $\frac{1}{2}\pi$ radians or 15
+minutes in a right angle as this program demonstrates:
+\begin{verbatim}
+  10 DEG
+  20 PRINT SIN (90) // Should print 1
+  30 RAD
+  40 PRINT SIN (3.1416 / 2)
+  50 CLOCK
+  60 PRINT SIN (15)
+  70 END
+\end{verbatim}
+
+If \meek you switch modes when in interactive mode, then it will switch
+back to degrees when you run the program, so if you need another
+unit of measurement, then put the instruction in the first few lines
+of your program.
+
+\section{Random numbers}
+\index{Random numbers}
+Sometimes you need a random number and RTB provides a function which you
+can use in 3 different ways to generate random numbers. The function
+is called {\tt RND}\index{Random numbers!RND} and when you give it
+an argument of zero (0), then it will return the last random number
+generated. If you call it with one (1), then it will generate a random
+number in the range {\tt $0 <= RND < 1$}, and if you call it with a
+number greater than one then it will generate an integer random number
+in the range {\tt $0 <= RND < N$}
+
+The following program will demonstrate:
+\begin{verbatim}
+   10 FOR i = 1 TO 5 CYCLE
+   20   PRINT RND (10)
+   30   REPEAT
+   40 END
+\end{verbatim}
+Change the number {\tt 10} above from 0 to 1 then to any other number
+to see the effect it has.
+
+The random number starting value (or seed) is re-generated every time you
+start RTB from scratch, but you can force the random number generator to
+generate the same sequence every time by assigning a number to the {\tt
+SEED}\index{Random numbers!SEED} built-in variable (introduced on page
+\arabic{seedVariable}) This may seen counter intuitive, but sometimes
+knowing the numbers in advance can help when testing a program. If you
+assign the value of zero to {\tt SEED} then it will use an internally
+generated random number.
+
+\section{String Functions}
+\index{Functions!String}
+We can concatenate strings together using the plus sign, but in addition
+to this, there are a few functions we can use with strings that might
+be handy.
+
+{\tt LEN}\index{LEN} -- This returns the length of a string, so:
+\begin{verbatim}
+  ? LEN ("Hello")
+\end{verbatim}
+should print {\tt 5}.
+
+Note \meek that functions which return a string have a dollar sign
+as part of their name - this is to keep things consistent with string
+variables. If it has a dollar then it needs to be assigned to a string,
+if not, then it needs to be assigned to a number.
+
+{\tt LEFT\$}\index{LEFT\$}, {\tt MID\$}\index{MID\$}, {\tt
+RIGHT\$}\index{RIGHT\$} -- These return parts of a string. For example:
+\begin{verbatim}
+  10 test$ = "Hello, world"
+  20 PRINT LEFT$ (test$, 2);  RIGHT$ (test$, 2);
+  30 PRINT MID$ (test$, 5, 2);  RIGHT$ (test$, 5)
+  40 END
+\end{verbatim}
+There are functions to convert a string into a number and back again:
+{\tt VAL}\index{VAL} takes a string argument and returns the ``value'' of it as
+a number, and {\tt STR\$}\index{STR\$} takes a number and returns a string.
+\begin{verbatim}
+  10 REM VAL and STR$ check
+  20 test = val (str$ (10))
+  30 PRINT "Test should be 10. It is: "; test
+  40 test$ = str$ (val ("123"))
+  50 PRINT "Test should be 123. It is: "; test$
+  60 END
+\end{verbatim}
+These are the main built-in functions. There are a few other functions
+that are not listed here. Read the reference section for a complete list.

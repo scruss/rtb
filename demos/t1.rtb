@@ -1,0 +1,19 @@
+  100 HGR 
+  110 CLOCK  // Clock angle mode
+  120 COLOUR = Green
+  130 PENDOWN 
+  132 FOR rotate = 1 TO 10 CYCLE 
+  135   FOR size = 20 TO 120 STEP 20 CYCLE 
+  140     PROC square(size)
+  145   REPEAT 
+  146   RIGHT (6)
+  147 REPEAT 
+  150 END 
+  300 DEF PROC square(dist)
+  310 LOCAL i
+  320 FOR i = 1 TO 4 CYCLE 
+  330   MOVE (dist)
+  340   RIGHT (15)
+  341   WAIT (0)
+  350 REPEAT 
+  360 ENDPROC 

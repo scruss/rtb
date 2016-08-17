@@ -1,0 +1,61 @@
+//
+// Mandelbrot
+//
+HGR 
+PRINT "Fast or slow mode? ";  
+CYCLE 
+  key$ = GET$
+REPEAT UNTIL key$ = "F" OR key$ = "f" OR key$ = "S" OR key$ = "s"
+//
+IF key$ = "F" OR key$ = "f" THEN 
+  PRINT "Fast.. Working ..."
+  fast = TRUE
+ELSE 
+  PRINT "Slow"
+  fast = FALSE
+ENDIF 
+//
+start = TIME
+PROC mandel
+taken = TIME - start
+//
+NUMFORMAT (5, 3)
+PRINT "Time taken: ";  taken / 1000
+//SaveScreen ("mandel.bmp")
+END 
+//
+DEF PROC mandel
+LOCAL mColour, cCounter
+mColour = 16
+LOCAL lSide, tp
+lSide = -2.0
+tp = 1.25
+LOCAL xSide, ySide
+xSide = 2.5
+ySide = -2.5
+LOCAL xScale, yScale, oMax
+xScale = xSide / GWIDTH
+yScale = ySide / GHEIGHT
+LOCAL x, y
+LOCAL cx, cy, zx, zy, tempx
+FOR y = 0 TO GHEIGHT / 2 CYCLE 
+  FOR x = 0 TO GWIDTH - 1 CYCLE 
+    cx = x * xScale + lSide
+    cy = y * yScale + tp
+    zx = 0
+    zy = 0
+    cCounter = 0
+    oMax = 15
+    WHILE (((zx * zx + zy * zy) < oMax) & (cCounter < mColour)) CYCLE 
+      tempx = zx * zx - zy * zy + cx
+      zy = 2 * zx * zy + cy
+      zx = tempx
+      cCounter = cCounter + 1
+    REPEAT 
+    COLOUR = cCounter
+    PLOT (x, y)
+    PLOT (x, GHEIGHT - 1 - y)
+  REPEAT 
+  IF  NOT fast THEN UPDATE 
+REPEAT 
+ENDPROC 

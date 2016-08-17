@@ -1,0 +1,38 @@
+\chapter{Built-in Procedures and Functions}\index{Procedures}\index{Functions}
+
+Procedures and functions may take parameters (often called {\em
+arguments}\index{Arguments}), and these must be enclosed in brackets.
+Functions return a value while procedures don't.
+
+\begin{description}
+\item[{\tt NUMFORMAT (total, decimals)}]\index{NUMFORMAT}
+This affects all future number printing via the {\tt PRINT} statement. The
+numbers will be printed right-justified in a total fields width of {\tt
+total} with {\tt decimals} digits after the decimal point.
+\item[{\tt WAIT (time)}]\index{WAIT}
+This waits for {\tt time} seconds. This may be a fractional number,
+but the accuracy will depend on the computer you are running it on,
+however delays down to 1/100th of a second should be achievable.
+\item[{\tt STOP}]\index{STOP}
+Program execution is stopped with an message indicating the current
+line number.
+\item[{\tt END}]\index{END}
+Program execution is ended.
+\item[{\tt CLS}]\index{CLS}
+The screen is cleared.
+\item[{\tt HVTAB (x, y)}]\index{HVTAB}
+The cursor is moved to the supplied column {\tt x} and line {\tt y}. Note
+that (0,0) is top-left of the text screen.
+\item[{\tt DEG}]\index{DEG}
+Switches the internal angle system to degrees. There are 360 degrees in
+a full circle.
+\item[{\tt RAD}]\index{RAD}
+Switches the internal angle system to radians. There are $2\pi$ radians
+in a full circle.
+\item[{\tt CLOCK}]\index{CLOCK}
+Switches the internal angle system to clock mode. There are 60 minutes
+in a full circle.
+\item[{\tt SWAP (v1, v2)}]\index{SWAP}
+This swaps the value of the 2 variables round. Both arguments must be
+the same type - ie.  both numberic or both string.
+\end{description}

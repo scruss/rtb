@@ -1,0 +1,25 @@
+\chapter{Comments}
+\index{Comments}
+
+It's always a good idea to include comments in your programs, and RTB
+provides 2 methods to help you do this.
+
+Firstly, there is the traditional {\tt REM} statement. Short for
+``Remark''.  Secondly there is the {\tt //} statement which is
+common in many other programming languages.
+
+{\tt REM} must appear at the start of a program line, but {\ //} may
+appear anywhere in a line - and anything after the {\tt //} is ignored.
+
+Examples:
+\begin{verbatim}
+  100 REM This is a demonstration of comments
+  110 //
+  120 REM // on its own can be used to separate program sections.
+  130 //
+  140 // The line below is allowed:
+  150 LET test = 42 // Set test to 42
+  160 //
+  170 // But the line below this is not allowed:
+  180 LET test = 42 REM Set test to 42
+\end{verbatim}

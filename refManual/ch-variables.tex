@@ -1,0 +1,142 @@
+\chapter{Variables}
+\setcounter{ch-variables}{\value{chapter}}
+\setcounter{ch-variables-page}{\value{page}}
+\index{Variables}\index{Numbers}\index{Strings}
+
+A variable is an area of computer memory that we can use to store data
+in. It has a name associated with it as well as the memory locations
+needed to store the data.
+
+\section{Names}
+\index{Variables!Names}
+Variable names must start with a letter but may otherwise contain any
+number of letters and digits and underscores. An example of a variable
+name might be: {\tt counter}, or {\tt height} or {\tt numberOfCows}
+and so on.
+
+\section{Types}
+\index{Variables!Types}
+RTB Supports two types of variables; Numbers and Strings. These can
+be scalars or arrays.
+
+String variables are differentiated from numeric variables
+by having the dollar character appended to them. E.g. {\tt name\$}
+or {\tt homeTown\$} and so on.
+
+A number is any decimal value like {\tt 1}, {\tt 3.14}, {\tt
+-5}, and so on. Numbers may also be expressed in  scientific
+notation. \index{Scientific Notation} and we use the letter ``e''
+to represent the power of 10 so {\tt 1.234e7} is {\tt $1.234\times 10^7$},
+or {\tt 12340000}. The number range is typically $\pm 10^{308}$.
+
+A string is a sequence of characters, e.g. {\tt "Hello"}, {\tt
+"Gordon"} and so on. Strings are always enclosed in double-quotes. The
+maximum length of a string is limited by available memory.
+
+\section{Assignment}
+\index{Variables!Assignment}
+We assign values to variables using the {\tt LET} instruction. e.g.
+\index{LET}
+\begin{verbatim}
+  LET numberOfCows = 0
+\end{verbatim}
+and we can modify them as follows:
+\begin{verbatim}
+  LET numberOfCows = cowsInField + cowsInBarn
+\end{verbatim}
+
+The \meek {\tt LET} statement is optional.
+
+\section{Numeric operators and Precedence}
+\index{Numeric Operators}\index{Precedence}
+There are various arithmetic and logical operators that can be
+used with numbers.
+
+In order of precedence, they are:
+\begin{center}
+\begin{tabular}[t]{|c|c|l|}
+\hline
+{\bf Precedence}	& {\bf Operator}	& {\bf Description}\\
+\hline
+\hline
+{\bf Highest}	&\texttt{\^}	& Exponent, or ``raise to the power of''\\ 
+\hline
+		&\texttt{-}	& Unary minus\\
+\hline
+		&\texttt{NOT}	& Logical NOT\\
+\hline
+		&\texttt{*}\hspace{3mm} 
+		\texttt{/}\hspace{3mm}
+		\texttt{MOD} 
+		\hspace{3mm}
+		\texttt{DIV}	& Multiply, Divide, Modulo, Integer Division\\
+\hline
+		&\texttt{+}\hspace{3mm}
+		\texttt{-}	& Addition, Subtraction\\
+\hline
+		&\texttt{|}\hspace{3mm}
+		\texttt{\&}\hspace{3mm}
+		\texttt{XOR}	& Logical OR, AND and XOR\\
+\hline
+		&\texttt{<}\hspace{3mm}
+		\texttt{<=}\hspace{3mm}
+		\texttt{>}\hspace{3mm}
+		\texttt{>=}	& Conditional tests\\
+\hline
+		&\texttt{=}\hspace{3mm}
+		\texttt{<>}	& Conditional Equals and Not Equals\\
+\hline
+{\bf Lowest}	&\texttt{AND}\hspace{3mm} 
+		\texttt{OR}	& Conditional AND and OR\\
+\hline
+\end{tabular}
+\end{center}
+
+You can always use ()'s to alter the evaluation order, if required,
+and in some cases they may help to make the code more readable and
+obvious.
+
+\section{String Operators}
+There is only one string operator - the plus operator which we can use
+to concatenate strings.
+\begin{verbatim}
+  firstName$ = "Gordon"
+  lastName$ = "Henderson"
+  fullName$ = firstName$ + " " + $lastName$
+  PRINT fullName$
+\end{verbatim}
+
+\section{Arrays}
+\index{Variables!Arrays}
+Arrays must be declared before they are first used and we must know the
+size of it before-hand. We declare them with the {\tt DIM}\footnote{Short
+for Dimension.}\index{DIM} statement.
+
+Arrays can be either numeric or string.  They can not hold mixed values.
+
+Arrays can have more than one dimension - the limit to the number
+of dimensions and overall size is program memory.
+
+Arays are used as follows:
+\begin{verbatim}
+  10 DIM list (4)
+  20 list(0) = 1
+  30 list(2) = 4
+  40 PRINT list(2) + list(0)
+  50 END
+\end{verbatim}
+
+\section{Associative Arrays}
+\index{Variables!Associative Arrays}\index{Variables!Map}
+Associative arrays (sometimes called a {\em map}) is another way to
+refer to the individial elements of an array. In the examples above we
+used a number, however RTB also accepts a string.
+\begin{verbatim}
+  10 DIM record$ (10)
+  20 record$ ("firstName") = "Gordon"
+  30 record$ ("lastName") = "Henderson"
+  40 record$ ("county") = "Devon"
+  50 PRINT "First name is "; record$ ("firstName")
+\end{verbatim}
+Associative arrays can be multi-dimensional and you can freely mix
+numbers and strings for the array indices.

@@ -1,0 +1,78 @@
+\chapter{Immediate mode commands}\index{Immediate mode commands}
+
+In immediate mode, as well as executing simple print instructions as
+well as other instructions you can use within a program, there are several
+commands which can only be executed in immediate mode.
+
+\begin{description}
+\item[{\tt LIST [[first] last]}:]\index{LIST}
+This lists the program stored in memory to the screen. You can pause the
+listing with the space-bar and terminate it with the escape key. If {\tt
+first} is given, then only that line will be listed. If both {\tt first}
+and {\tt last} are given, then lines in that range will be listed.
+\item[{\tt SAVE [filename]}:]\index{SAVE}
+Saves your program to the local non-volatile storage. {\tt filename} is
+the name of the file you wish to save and may not contain spaces. If you
+have already saved a file, then you can subsequently execute {\tt SAVE}
+without the filename and it will overwrite the last file saved. (This is
+``safe'' as it's reset when you load a new program or use the {\tt NEW}
+command)
+\item[{\tt SAVENN [filename]}:]\index{SAVENN}
+Same as the normal {\tt SAVE} command, but saves with No line
+Numbers. You can only save without line numbers if your program has no
+{\tt GOTO} or {\tt GOSUB} statements and no {\tt RESTORE} statements
+with a line-number.
+\item[{\tt LOAD filename}:]\index{LOAD}
+Loads in a program from the local non-volatile storage. As with {\tt
+SAVE}, you need to supply the filename without any quotes.
+\item[{\tt DIR [directory]}:]\index{DIR}
+Lists the RTB files in your current working directory, or the given
+directory (without quotes)
+\item[{\tt NEW}:]\index{NEW}
+Deletes the program in memory. There is no verification and once it's
+gone, it's gone. Remember to save first!
+\item[{\tt RUN}:]\index{RUN}
+Runs the program in memory. You may give a line number and the
+program will start from that number rather than the first line in the
+program. Note that using {\tt RUN} will clear all variables.
+\item[{\tt CONT}:]\index{CONT}
+Continues program execution after a {\tt STOP}\index{STOP}
+instruction. Variables are not cleared.
+\item[{\tt CLEAR}:]\index{CLEAR}
+Clears all variables and deletes all arrays. It also removes any active
+sprites from the screen.  Stopped programs may not be continued after
+a {\tt CLEAR} command.
+\item[{\tt TRON}:]\index{TRON}
+Turns line-number tracing on. As each line is executed, it's number is
+printed to the text console that RTB was started from.
+\item[{\tt TROFF}:]\index{TROFF}
+Turns line number tracing off.
+\item[{\tt ED linenumber}:]\index{ED}
+Edit the line given.
+\item[{\tt RENUMBER [start [inc [first [last]]]]}:]\index{RENUMBER}
+This renumbers your program - by default it will start at 100 and go
+in increments of 10, however you can change this as follows: The {\tt
+start} and {\tt inc} parameters specify the new starting line number and
+increment, the {\tt first} and {\tt last} parameters specify the first
+and last {\em exiting} line numbers to renumber. Using this latter way,
+you can move lines in the program, but beware of overlaps.
+
+If an overlap does occur, then renumbering will stop at that point and
+you may find your program to be somewhat scrambled\dots Please make sure
+you save your program before renumbering!
+
+\item[{\tt VERSION}:]\index{VERSION}
+Print the current version of RTB.
+\item[{\tt EXIT}:]\index{EXIT}
+Exit RTB and return to the environment you started RTB in.
+\end{description}
+
+\section{File names}
+\index{File names}
+The system you run RTB on may have its own rules
+about what a filename can look like, and whether the name is
+case-sensitive. (ie. UPPER/lower case letters -- are they considered the
+same, or different?) In the Linux environment then case is significant. If
+you're not sure, just stick to simple names without spaces. If you're
+subsequently looking at the files outside the RTB environment note that
+the filenames will have the characters {\tt .rtb} appended to it.

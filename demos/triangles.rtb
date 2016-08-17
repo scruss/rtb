@@ -1,0 +1,32 @@
+//
+// Draw Triangles
+//
+CLS 
+CYCLE 
+  PRINT 
+  PRINT "Low or High resolution graphics ? ";  
+  k$ = GET$
+  IF (k$ = "l") OR (k$ = "L") THEN 
+    GR 
+    BREAK 
+  ENDIF 
+  IF (k$ = "h") OR (k$ = "H") THEN 
+    HGR 
+    BREAK 
+  ENDIF 
+REPEAT 
+//
+CYCLE 
+  COLOUR = RND (16)
+  x1 = RND (GWIDTH)
+  x2 = RND (GWIDTH)
+  x3 = RND (GWIDTH)
+  y1 = RND (GHEIGHT)
+  y2 = RND (GHEIGHT)
+  y3 = RND (GHEIGHT)
+  f = RND (2)
+  TRIANGLE (x1, y1, x2, y2, x3, y3, f)
+  UPDATE 
+  IF INKEY <> -1 THEN BREAK 
+REPEAT 
+END 

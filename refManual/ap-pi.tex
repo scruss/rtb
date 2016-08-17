@@ -1,0 +1,52 @@
+\chapter{Raspberry Pi - GPIO Programming}
+\index{Raspberry Pi}
+RTB supports the on-board GPIO hardware in the Raspberry Pi computer.
+
+\section{PinMode}
+\index{Raspberry Pi!PinMode}
+This configures the mode of a pin on the Pi's GPIO. It takes
+an argument which specifies the mode of the pin - input, output or PWM
+output. 
+\begin{verbatim}
+  220 PinMode (4, 0)
+\end{verbatim}
+In this example, we're setting pin 4 to be used for input. The modes are;
+\begin{description}
+\item[0] Input
+\item[1] Output
+\item[2] PWM Output
+\end{description}
+
+\section{DigitalRead}
+\index{Raspberry Pi!DigitalRead}
+This function allows you to read the state of a digital pin on the
+Raspberry Pi. You may need to set the pin mode beforehand to make
+sure it's
+configured as an input device. It will return {\tt TRUE} or {\tt FALSE}
+to indicate an input being high or low respectively.
+\begin{verbatim}
+  200 PinMode (12, 0) // Set pin 12 to input
+  210 if DigitalRead (12) THEN PROC ButtonPushed
+\end{verbatim}
+
+\section{DigitalWrite}
+\index{Raspberry Pi!DigitalWrite}
+This procedure sets a digital pin to the supplied value - 0 for off or
+1 for on. As with {\tt DigitalRead}, you may need to set the pin mode
+(to output) beforehand.
+\begin{verbatim}
+  310 PinMode (2, 1) // Set pin 2 to output mode
+  320 DigitalWrite (2, 1) // Set output High (on)
+  330 Wait (1)
+  330 DigitalWrite (2, 0) // Set output Low (off)
+\end{verbatim} 
+
+\section{PwmWrite}
+\index{Raspberry Pi!PwmWrite}
+This procedure outputs a PWM waveform on the selected pin. The pin must
+be configured for PWM mode beforehand.
+The value set should be between 0 and 1024.
+\begin{verbatim}
+  310 PinMode (1, 2) // Set pin 1 to PWM output mode
+  320 PwmWrite (11, 200)
+\end{verbatim} 

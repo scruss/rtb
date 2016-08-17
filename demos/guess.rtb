@@ -1,0 +1,32 @@
+//
+// Simple number guessing game
+//
+READ limit
+//
+secret = RND (limit) + 1
+CLS 
+VTAB = 4
+PRINT "I have a number from one to ";  limit;  "."
+PRINT "Try to guess it."
+//
+CYCLE 
+  PRINT 
+  TCOLOUR = White
+  INPUT "What's your guess? ", guess
+  IF guess < secret THEN 
+    TCOLOUR = Olive
+    PRINT "Too low."
+  ELSE 
+    IF guess > secret THEN 
+      TCOLOUR = Red
+      PRINT "Too high."
+    ELSE  // Must be right
+      TCOLOUR = Lime
+      PRINT "Well done!"
+      BREAK 
+    ENDIF 
+  ENDIF 
+REPEAT 
+TCOLOUR = White
+END 
+DATA 120

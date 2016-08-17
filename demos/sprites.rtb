@@ -1,0 +1,62 @@
+// ball:
+//    Bounce a ball round the screen
+//
+HGR 
+numSprites = 100
+DIM sprites(numSprites)
+DIM xPos(numSprites)
+DIM yPos(numSprites)
+DIM xSpeed(numSprites)
+DIM ySpeed(numSprites)
+DIM xDir(numSprites)
+DIM yDir(numSprites)
+//
+FOR i = 1 TO numSprites CYCLE 
+  sprites(i) = LoadSprite ("test.bmp")
+  xPos(i) = RND (GWIDTH - 64)
+  yPos(i) = RND (GHEIGHT - 64)
+  xSpeed(i) = RND (3) + 1
+  ySpeed(i) = RND (3) + 1
+  xDir(i) = RND (2)
+  IF xDir(i) = 0 THEN xDir(i) = -1
+  yDir(i) = RND (2)
+  IF yDir(i) = 0 THEN yDir(i) = -1
+REPEAT 
+//numformat(4,0)
+//for i = 1 to numSprites cycle
+//  print i; ": ";xDir (i); ",";yDir (i);
+//  print ": "; xPos(i); ",";yPos (i)
+//repeat
+//proc updateSprites
+//x=get
+//
+numformat (5,1)
+hvtab(0,0)
+print "fps: "; 0;
+CYCLE 
+  start = TIME
+  PROC updateSprites
+  hvtab (0,0)
+  print "fps: "; 1000 / (time - start);
+REPEAT 
+END 
+//
+DEF PROC updateSprites
+LOCAL i, newX, newY
+FOR i = 1 TO numSprites CYCLE 
+  newX = xPos(i) + xSpeed(i) * xDir(i)
+  IF (newX > (GWIDTH - 64)) OR (newX < 0) THEN 
+    newX = xPos(i)
+    xDir(i) = - xDir(i)
+  ENDIF 
+  xPos (i) = newX
+  newY = yPos(i) + ySpeed(i) * yDir(i)
+  IF (newY > (GHEIGHT - 64)) OR (newY < 0) THEN 
+    newY = yPos(i)
+    yDir(i) = - yDir(i)
+  ENDIF 
+  yPos (i) = newY
+  PlotSprite (sprites(i), xPos(i), yPos(i))
+REPEAT 
+UPDATE 
+ENDPROC 

@@ -1,0 +1,184 @@
+\chapter{Looping the Loop}\index{Loops}
+
+This chapter explains the RTB instructions for handling loops.
+Using these instructions, you can almost always eliminate the
+use of the {\tt GOTO} instruction, and hopefully make your
+program easier to read.
+
+There are three new commands which RTB has to define a block of code which
+will be repeated. These are: {\tt CYCLE}\index{Loops!CYCLE} which defines
+the start of the block and {\tt REPEAT}\index{Loops!REPEAT} which defines
+the end. An alternative form of {\tt CYCLE} is {\tt DO}\index{Loops!DO}
+
+\section{CYCLE \dots REPEAT}
+
+On their own, these would cause a program to loop between them forever,
+however RTB provides 3 main means to control these loops. Lets start
+with an example.
+\begin{verbatim}
+  10 REM Demonstration of CYCLE...REPEAT
+  20 count = 1
+  30 CYCLE
+  40   PRINT "5 * "; count; " = "; 5 * count
+  50   count = count + 1
+  60 REPEAT
+  70 END
+\end{verbatim}
+If you {\tt RUN} this program, it will run forever until you hit the
+{\tt ESC} key, so it's not that useful for anything other than to
+demonstrate {\tt CYCLE} and {\tt REPEAT}.
+
+We could use an {\tt IF \dots\ THEN GOTO} sequence to jump out of the
+loop, but that's not very elegant and we're trying to not use {\tt GOTO}
+anyway. Fortunately there are several modifiers.
+
+\subsection{UNTIL}
+\index{Loops!UNTIL}
+Lets modify it slightly -- change line 60:
+\begin{verbatim}
+  60 REPEAT UNTIL count > 10
+\end{verbatim}
+and run the program again. We get our 5 times table, as before, but not a
+{\tt GOTO} in sight. We can see clearly the lines of code executed inside
+the loop and if we read the program it possibly makes more sense. We also
+don't need to keep track of any line numbers either.
+
+\subsection{WHILE}
+\index{Loops!WHILE}
+If we test the condition at the end of the loop (using {\tt UNTIL}) then
+the loop will be executed at least once. There may be some situations
+where we don't want the loop executed at all, so to accomplish this
+we can move the test to the start of the loop, before the {\tt CYCLE}
+instruction, but rather than use the {\tt UNTIL} instruction we now use
+{\tt WHILE}.
+
+\noindent
+Note that you can use {\tt WHILE} or {\tt UNTIL} interchangeably. So
+you can re-write the above as:
+\begin{verbatim}
+  10 REM Demonstration of CYCLE...REPEAT
+  20 count = 1
+  30 WHILE COUNT <= 10 CYCLE
+  40   PRINT "5 * "; count; " = "; 5 * count
+  50   count = count + 1
+  60 REPEAT
+  70 END
+\end{verbatim}
+or
+\begin{verbatim}
+  10 REM Demonstration of CYCLE, REPEAT...WHILE/UNTIL
+  20 count = 1
+  30 UNTIL COUNT > 10 CYCLE
+  40   PRINT "5 * "; count; " = "; 5 * count
+  50   count = count + 1
+  60 REPEAT
+  70 END
+\end{verbatim}
+
+\section{DO \dots REPEAT}
+
+The {\tt DO}\index{Loops!DO} instruction is very similar to {\tt CYCLE}\index{Loops!CYCLE}
+however the positioning of the test is reversed. Writing some of the above examples with {\tt DO}:
+
+\begin{verbatim}
+  10 REM Demonstration of DO, REPEAT...WHILE/UNTIL
+  20 count = 1
+  30 DO WHILE count <= 10
+  40   PRINT "5 * "; count; " = "; 5 * count
+  50   count = count + 1
+  60 REPEAT
+  70 END
+\end{verbatim}
+and
+\begin{verbatim}
+  10 REM Demonstration of DO...REPEAT and WHILE/UNTIL
+  20 count = 1
+  30 DO UNTIL count > 10
+  40   PRINT "5 * "; count; " = "; 5 * count
+  50   count = count + 1
+  60 REPEAT
+  70 END
+\end{verbatim}
+
+Finally \meek (in this section!) note that not all programing languages
+are as flexible as this -- some only allow {\tt WHILE} at the top of a
+loop and {\tt UNTIL} (or their equivalents) at the bottom.
+
+
+\section{For Loops}
+\index{Loops!FOR}
+There is another form of loop which combines a counter and a test in
+one instruction. This is a standard part of most programming languages
+in one form or another and is often called a ``for loop''.
+
+\noindent
+Here is our five times table program written with a for loop:
+\begin{verbatim}
+  10 REM Demonstration of FOR loop
+  20 FOR count = 1 TO 10 CYCLE
+  30   PRINT "5 * "; count; " = "; 5 * count
+  40 REPEAT
+  50 END
+\end{verbatim}
+The {\tt FOR} loop works as follows: It initialises the variable ({\tt
+count} in this instance) to the value given; {\tt 1}, then executes the
+{\tt CYCLE\dots REPEAT} loop, adding one to the value of the variable until
+the variable is greater than the end value {\tt 10}.
+
+There is an optional modification to the {\tt FOR} loop in that allows you
+to specify how much the loop variable is incremented (or decremented!) by
+at each iteration by using the {\tt STEP}\index{Loops!STEP} instruction.
+\begin{verbatim}
+  10 REM Demonstration of FOR loop with STEP
+  20 FOR count = 1 TO 10 STEP 0.5 CYCLE
+  30   PRINT "5 * "; count; " = "; 5 * count
+  40 REPEAT
+  50 END
+\end{verbatim}
+This will print our 5 times table in steps of 0.5.
+
+Note that that the end number (10 in this case) isn't tested for exactly. The
+test is actually $>=$ So if you were incrementing by 4 (for example), {\tt
+count} would start at 1, then become 5, then 9, then 13 -- at which point
+flow control would jump to the line after the {\tt REPEAT}.
+
+\noindent
+Another way to visualise the {\tt FOR} loop is like this:
+\begin{verbatim}
+  10 REM Demonstration of how a FOR loop works
+  20 REM FOR count = 1 to 10 STEP 0.5 CYCLE ...
+  30 count = 1
+  40 WHILE count <= 10 CYCLE
+  50   PRINT "5 * "; count; " = "; 5 * count
+  60   count = count + 0.5
+  70 REPEAT
+  80 END
+\end{verbatim}
+the {\tt FOR} loop is simply a convenient way to incorporate the three
+lines controlling {\tt count} into one line.
+
+Note \meek that this form of the for loop is slightly different from most BASICs,
+so RTB provides the standard method too. Our demonstrations loop above can
+be written as:
+
+\begin{verbatim}
+  10 REM Demonstration of FOR loop with STEP - Standard BASIC
+  20 FOR count = 1 TO 10 STEP 0.5 
+  30   PRINT "5 * "; count; " = "; 5 * count
+  40 NEXT count
+  50 END
+\end{verbatim}
+
+Note the {\tt NEXT}\index{Loops!NEXT} statement. The variable name after
+{\tt NEXT} is optional, but if used then it must match the variable used
+in the corresponding {\tt FOR} statement.
+
+\section{Breaking and continuing the loop}
+\index{Loops!BREAK}\index{Loops!CONTINUE}
+There are two other instructions you can use with {\tt CYCLE\dots REPEAT}
+loops -- {\tt BREAK} which will cause program execution to continue on
+the line {\em after} the {\tt REPEAT} instruction, ie. You break out
+of the loop, and {\tt CONTINUE} which will cause the loop to re-start
+at the line {\em containing} the {\tt CYCLE} instruction, continuing
+a {\tt FOR} instruction and re-evaluating and any {\tt WHILE} or {\tt
+UNTIL} instructions.

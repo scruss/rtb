@@ -1,0 +1,30 @@
+//
+// Draw ellipses
+//
+CLS 
+CYCLE 
+  PRINT 
+  PRINT "Low or High resolution graphics ? ";  
+  k$ = GET$
+  IF (k$ = "l") OR (k$ = "L") THEN 
+    GR 
+    BREAK 
+  ENDIF 
+  IF (k$ = "h") OR (k$ = "H") THEN 
+    HGR 
+    BREAK 
+  ENDIF 
+REPEAT 
+//
+CYCLE 
+  COLOUR = RND (16)
+  cx = RND (GWIDTH)
+  cy = RND (GHEIGHT)
+  rx = RND (GWIDTH / 4)
+  ry = RND (GHEIGHT / 4)
+  f = RND (2)
+  ELLIPSE (cx, cy, rx, ry, f)
+  UPDATE 
+  IF INKEY <> -1 THEN BREAK 
+REPEAT 
+END 

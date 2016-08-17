@@ -1,0 +1,15 @@
+  TGR 
+  PENCOLOUR = Green
+  PENUP 
+  MOVE (50)
+  PENDOWN 
+  FOR i = 1 TO 4 CYCLE 
+  x = 1
+  FOR j = 1 TO 100 CYCLE 
+  MOVE (10)
+  RIGHT (100 - x)
+  x = x + 1
+  WAIT (0)
+  REPEAT 
+  REPEAT 
+  END 

@@ -1,0 +1,167 @@
+\chapter{Graphical Procedures and Functions}\index{Graphics}
+
+RTB supports two types of graphics; traditional Cartesian ($x,y$) type
+graphics with functions to plot points, lines, etc. and turtle graphics
+which can sometimes be easier to teach/demonstrate to younger people.
+
+RTB normally works in the highest graphical resolution available to it,
+but it also supports two effective resolutions - the high resolution
+is the native resolution of the display you are using - e.g. on a PC
+monitor this may be up to 1280x1024, or 1920x1080 on an HD monitor. It
+also supports a lower resolution where each low resolution pixel is
+really 8x8 high resolution pixels.
+
+Your programs should use the {\tt GWIDTH} and {\tt GHEIGHT} system
+variables to scale their output to the current display size. Assuming
+a fixed resolution may not be advisable for programs designed to run on
+systems other than your own.
+
+\section{System Variables}
+\begin{description}
+\item[{\tt COLOUR}]\index{COLOUR} This can be assigned to, or
+read from, and represents the current plotting colour.
+
+\item[{\tt GHEIGHT}]\index{GHEIGHT} This can be read to find the current
+height of the display in either high resolution or low resolution pixels.
+
+\item[{\tt GWIDTH}]\index{GWIDTH} This can be read to find current
+width of the display in either high resolution or low resolution pixels.
+
+\item[{\tt TANGLE}]\index{TANGLE} This can be read or assigned to
+and represents the current angle of the turtle when using turtle
+graphics mode.
+\end{description}
+
+See also the colour names and note the current angle modes when
+using turtle graphics or any transcendental functions to plot
+graphics.
+
+\section{General Graphics}
+\begin{description}
+\item[{\tt GR}]\index{GR}
+This clears the screen and initialises low-resolution graphics mode.
+\item[{\tt HGR}]\index{HGR}
+This clears the screen and initialises high-resolution graphics mode.
+\item[{\tt SaveScreen (filename\$)}]\index{SaveScreen}
+This takes a snapshot of the current screen and saves it to the filename given.
+\item[{\tt rgbColour (r, g, b)}]\index{rgbColour}
+This sets the current graphical plot colour to an RGB (Red, Green, Blue)
+value. The values should be from 0 to 255.
+\item[{\tt UPDATE}]\index{UPDATE}
+When plotting graphics, they are actually plotted to a separate off-screen
+working area, so if you write a program that does lots and lots of graphical
+actions, then you may not see the display being updated. The {\tt UPDATE} procedure
+forces the working area to be copied to the display. An update is also
+performed automatically if your program stops for input, or when you
+{\tt PRINT} a new line.
+\end{description}
+
+\section{Cartesian Graphics}
+The graphical origin at (0,0) is at the bottom-left of the
+display. Coordinates may be negative and may also be off-screen when
+lines are clipped to the edge of the display. The {\tt ORIGIN} command
+may be used to change the graphical origin.
+
+\begin{description}
+\item[{\tt PLOT (x, y)}]\index{PLOT}
+This plots a single pixel in the selected graphics mode in the selected
+colour. Note that (0,0) is bottom left.
+\item[{\tt HLINE (x1, x2, y)}]\index{HLINE}
+Draws a horizontal line on row {\tt y}, from column {\tt x1} to column {\tt x2}.
+\item[{\tt VLINE (y1, y2, x)}]\index{VLINE}
+Draws a vertical line on column {\tt x}, from row {\tt y1} to row {\tt y2}.
+\item[{\tt LINE (x1, y1, x2, y2)}]\index{LINE}
+Draws a line from point {\tt x1, y1} to {\tt x2, y2}.
+\item[{\tt LINETO (x1, y1)}]\index{LINETO}
+Draws a line from the last point plotted (by the {\tt PLOT} or {\tt LINE}
+procedures to point {\tt x1, y1}.
+
+\item[{\tt CIRCLE (cx, cy, r, f)}]\index{CIRCLE}
+Draws a circle at ({\tt cx,cy}) with radius {\tt r}. The final parameter,
+{\tt f} is either TRUE or FALSE, and specifies filled (TRUE) or outline
+(FALSE).
+
+\item[{\tt ELLIPSE (cx, cy, xr, yr, r, f)}]\index{ELLIPSE}
+Draws an ellipse at ({\tt cx,cy}) with $x$ radius {\tt xr} and $y$
+radius {\tt yr}. The final parameter, {\tt f} is either TRUE or FALSE,
+and specifies filled (TRUE) or outline (FALSE).
+
+\item[{\tt TRIANGLE (x1, y1, x2, y2, x3, y3, f)}]\index{TRIANGLE}
+Draws a triangle with its corners at the three given points.
+The final parameter, {\tt f} is either TRUE or FALSE, and specifies
+filled (TRUE) or outline (FALSE).
+
+\item[{\tt PolyStart}]\index{PolyStart} This marks the start of
+drawing a filled polygon.
+
+\item[{\tt PolyPlot (x, y)}]\index{PolyPlot}
+This remembers the given X,Y coordinates as part of a filled polygon.
+Nothing is actually drawn on the screen until the {\tt PolyEnd}
+instruction is executed. Polygons can have a maximum of 64 points.
+
+\item[{\tt PolyEnd}]\index{PolyStart} This marks the end of
+drawing a polygon. When this is called, the stored points will
+be plotted on the screen and the polygon will be filled.
+
+
+\item[{\tt RECT (x, y, w, h, f)}]\index{RECT}
+Draws a rectangle at ({\tt x,y}) with width {\tt w} and height {\tt
+h}. The final parameter, {\tt f} is either TRUE or FALSE, and specifies
+filled (TRUE) or outline (FALSE).
+
+\item[{\tt ORIGIN (x, y)}]\index{ORIGIN}
+This changes the graphics origin for the Cartesian plotting
+procedures. The {\tt x, y} coordinates are always absolute coordinates
+with (0,0) being bottom left.
+\end{description}
+
+\section{Turtle Graphics}
+When the graphics are initialised with either {\tt GR} or {\tt HGR},
+the turtle position is set to the middle of the screen, pointing at
+an angle of 0 degrees (up) with the pen lifted. However note that the
+turtles position is affected by the {\tt ORIGIN} command above, so you
+may have to take this into consideration if using {\tt ORIGIN}.
+
+With the noted effects of the {\tt ORIGIN} procedure,
+you may mix turtle and Cartesian graphics without any issues.
+
+\begin{description}
+\item[{\tt PENDOWN}]\index{PENDOWN}
+This lowers the ``pen'' that the turtle is using to draw with. Nothing will
+be drawn until you execute this procedure.
+\item[{\tt PENUP}]\index{PENUP}
+This lifts the ``pen'' that the turtle uses to draw. You can move the turtle
+without drawing while the pan is up.
+\item[{\tt MOVE (distance)}]\index{MOVE}
+This causes the turtle to move forwards {\tt distance} screen pixels.
+\item[{\tt MOVETO (x, y)}]\index{MOVETO}
+This moves the turtle to the absolute location ({\tt x, y}). A line will
+be drawn if the pen is down.
+\item[{\tt LEFT (angle)}]\index{LEFT}
+Turns the turtle to the left (counter clockwise) by the given angle.
+\item[{\tt RIGHT (angle)}]\index{RIGHT}
+Turns the turtle to the right (clockwise) by the given angle.
+\end{description}
+
+\section{Sprite Procedures and Functions}
+Sprites are (usually) small rectangular or square bitmap images which
+you can move round the screen under program control. You can create them
+using one of the many graphical image creation packages available. The
+file-format is 24 bits per pixel BMP, and a colour of 254,254,254 is
+transparent.
+
+\begin{description}
+\item[{\tt LoadSprite (filename\$)}]\index{LoadSprite}
+This loads a sprite from the supplied fine into memory and returns a
+handle to the internal sprite data. You need to use the number returned
+in all future sprite handling functions/procedures.
+\item[{\tt PlotSprite (sprite, x, y)}]\index{PlotSprite}
+This plots the given sprite {\tt sprite} at the suppled {\tt x, y}
+coordinates. The coordinates specify the bottom-left corner of the
+bounding rectangle of the sprite.
+\item[{\tt DelSprite}]\index{DelSprite}
+This removes a sprite from the screen.
+\end{description}
+
+You do not have to erase a sprite from the screen when you move it,
+just call {\tt PlotSprite} with the new coordinates.

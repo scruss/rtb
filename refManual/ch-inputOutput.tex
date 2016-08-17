@@ -1,0 +1,105 @@
+\chapter{Input and Output}
+\index{Input}\index{Output}
+
+\section{Input}
+You can read data into your program with the {\tt INPUT} statement.
+It works as follows:
+
+\begin{verbatim}
+  100 INPUT test
+  110 PRINT test
+  199 END
+\end{verbatim}
+You can only input one item at a time.
+
+When RTB encounters the {\tt INPUT} statement, program execution
+stops, a question-mark ({\tt ?}) is printed and it waits for you
+to type something. 
+
+It then assigns what you typed to the variable.
+
+If you typed in a string when it was expecting a number, then it
+will assign zero to the number.
+
+To stop it printing the question mark, you can optionally give it
+a string to print:
+\begin{verbatim}
+  100 INPUT "Give me a number: ", test
+  110 PRINT test
+  199 END
+\end{verbatim}
+
+{\tt INPUT} reads a line of text in until you press the {\tt ENTER}
+key. To just read in a single character, you can use the {\tt GET}
+instruction to read the key as a number, or the {\tt GET\$} instruction
+to read the key as a string.
+\begin{verbatim}
+  100 PRINT "Press any key to continue ";
+  110 key$ = GET$
+  199 END
+\end{verbatim}
+
+Finally, it's sometimes handy to be able to see if a key has been pressed
+without stopping the program running - e.g. in games and simulations. To
+do this, we can use the {\tt INKEY} command. This will return the ASCII
+value of the key presses, or -1 if no key has been pressed.
+\begin{verbatim}
+  100 REM Simple reaction timer
+  110 WAIT (2)
+  120 WHILE INKEY <> -1 CYCLE 
+  130   // Do nothing, just make sure no keys have been pushed
+  140 REPEAT 
+  150 start = TIME
+  160 PRINT "Go!"
+  170 WHILE INKEY = -1 CYCLE 
+  180   // Do nothing
+  190 REPEAT 
+  200 etime = TIME
+  210 PRINT "Your reaction time is ";  etime - start;  " milliseconds"
+  220 END 
+\end{verbatim}
+
+\section{Output}
+Outputting text to the screen is done via the {\tt PRINT}
+command. The {\tt PRINT} command is quite versatile and
+will print any combination of numbers and strings separated
+by the semicolon ({\tt ;})
+\begin{verbatim}
+  100 INPUT "Give me a number: ", test
+  110 PRINT "The number you gave me was "; test
+  199 END
+\end{verbatim}
+Normally the {\tt PRINT} command will move to the next line of
+output at the end of the program statement, but you can suppress
+this with a trailing semicolon.
+\begin{verbatim}
+  100 PRINT "This is on a line on its own"
+  110 PRINT "This is at the start ";
+  120 PRINT "and this is at the end of the same line"
+  199 END
+\end{verbatim}
+The {\tt PRINT} command may be abbreviated with a question mark ({\tt ?})
+\begin{verbatim}
+  100 ? "Hello, world"
+\end{verbatim}
+but if you type {\tt LIST} it will be converted back into the full {\tt
+PRINT} instruction however the {\tt ?} way is handy for immediate mode
+calculations.
+
+You can affect the way numbers are printed using the {\tt NUMFORMAT}
+procedure. This takes 2 arguments, the first specifying the total
+number of characters to print and the 2nd the number of characters
+after the decimal point.
+
+\begin{verbatim}
+  100 NUMFORMAT (6,4)
+  110 PRINT PI
+  199 END
+\end{verbatim}
+will print: {\tt 3.146}
+
+Numbers printed this way are right-justified with leading spaces inserted
+if required.
+
+{\tt NUMFORMAT (0,0)} restores the output to the general purpose format
+used by default.

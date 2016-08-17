@@ -1,0 +1,17 @@
+   10 HGR 
+   11 PENDOWN 
+   20 COLOUR = Yellow
+   25 FOR j = 1 TO 100 CYCLE 
+   30   FOR i = 1 TO 5 CYCLE 
+   32     IF (j MOD 2) = 0 THEN 
+   33       COLOUR = Yellow
+   34     ELSE 
+   35       COLOUR = Purple
+   36     ENDIF 
+   40     MOVE (200)
+   50     RIGHT (90 + 54)
+   55     WAIT (0)
+   60   REPEAT 
+   70   RIGHT (3.6)
+   80 REPEAT 
+   99 END 

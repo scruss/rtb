@@ -1,0 +1,48 @@
+HGR 
+RAD 
+DIM AnglePattern(3100), TempPattern(3100)
+Angle = 0
+c = 1
+r = 1
+NumSides = 3
+AnglePattern(0) = -30
+AnglePattern(1) = 120
+AnglePattern(2) = 120
+StartX = gwidth / 2
+StartY = gheight / 4
+SideLength = 300
+//CONST PI = 3.141592654#
+CYCLE 
+  c = 1
+  X = StartX
+  Y = StartY
+  Angle = AnglePattern(0)
+  WAIT (1)
+  CYCLE 
+    NewX = X + SIN (Angle * PI / 180) * SideLength
+    NewY = Y + COS (Angle * PI / 180) * SideLength
+    Angle = Angle + AnglePattern(c)
+    //LINE (X, Y)-(NewX, NewY), r
+    COLOUR = r
+    LINE (X, Y, NewX, NewY)
+    IF (c = (NumSides - 1)) THEN c = 0
+    c = c + 1
+    X = NewX
+    Y = NewY
+    UPDATE 
+  REPEAT UNTIL (INT (X) = INT (StartX)) AND (INT (Y) = INT (StartY))
+  r = r + 2
+  FOR b = 0 TO NumSides - 1 CYCLE 
+    TempPattern(b) = AnglePattern(b)
+  REPEAT 
+  IF NumSides * 4 > 4000 THEN END 
+  FOR b = 0 TO NumSides - 1 CYCLE 
+    AnglePattern(b * 4) = TempPattern(b)
+    AnglePattern((b * 4) + 1) = -60
+    AnglePattern((b * 4) + 2) = 120
+    AnglePattern((b * 4) + 3) = -60
+  REPEAT 
+  NumSides = NumSides * 4
+  SideLength = SideLength / 3
+  UPDATE 
+REPEAT 

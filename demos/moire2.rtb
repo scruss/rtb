@@ -1,0 +1,36 @@
+KeyPlus = ASC ("+")
+KeyNeg = ASC ("-")
+//
+REM Moire
+HGR 
+x = GWIDTH / 2
+y = GHEIGHT / 2
+inc = 3
+col = Pink
+CYCLE 
+  PROC moire(x, y, inc, col)
+  key = GET
+  PROC moire(x, y, inc, 0)
+  IF key = KeyLeft THEN x = x - 1
+  IF key = KeyRight THEN x = x + 1
+  IF key = KeyUp THEN y = y + 1
+  IF key = KeyDown THEN y = y - 1
+  IF key = KeyPlus THEN inc = inc + 1
+  IF key = KeyNeg THEN inc = inc - 1
+  IF x < 0 THEN x = GWIDTH - 1
+  IF x > GWIDTH THEN x = 0
+  IF y < 0 THEN y = GHEIGHT - 1
+  IF y > GHEIGHT THEN y = 0
+  IF inc = 0 THEN inc = 1
+REPEAT 
+DEF PROC moire(x, y, inc, col)
+COLOUR = col
+FOR w = 0 TO GWIDTH - 1 STEP inc CYCLE 
+  LINE (x, y, w, 0)
+  LINE (x, y, w, GHEIGHT - 1)
+REPEAT 
+FOR h = 0 TO GHEIGHT - 1 STEP inc CYCLE 
+  LINE (x, y, 0, h)
+  LINE (x, y, GWIDTH - 1, h)
+REPEAT 
+ENDPROC 

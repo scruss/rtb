@@ -1,0 +1,88 @@
+\chapter{Data, Read and Restore}
+\index{DATA}\index{READ}\index{RESTORE}
+Sometimes you need to initialise variables with a predetermined set
+of data -- numbers or strings. BASIC and RTB has a relatively easy,
+if somewhat old-fashioned\footnote{Old-fashioned in that hardly any
+other modern languages use this method, but it's still useful in this
+environment} way to do this.
+
+There are three keywords to control this. This first is the {\tt DATA}
+instruction. This doesn't do anything in its own right, but serves as a
+marker or placeholder for the data. After the {\tt DATA} instruction,
+you list data values, numbers or strings separated by commas, as this
+example demonstrates:
+\begin{verbatim}
+  1000 DATA 1, 2, 17.4
+  1010 DATA "Monday", "Tuesday", "Wednesday, "Thursday"
+  1020 DATA "Friday,", "Saturday", "Sunday", 7
+\end{verbatim}
+Note that you can mix numbers and strings on the same line.
+
+To get data into your program variables, we use the {\tt READ}
+instruction. We can read one, or many items of data at a time.
+\begin{verbatim}
+  100 READ start, end, number
+  110 READ day1$, day2$
+\end{verbatim}
+and so on.
+
+RTB remembers the location of the last item of data read, so that the 
+next read continues from where it left off. If you try to read more data
+than there is defined then you'll get an error message and the program will
+stop running.
+
+You can reset RTBs data pointer with the {\tt RESTORE} command. On its own,
+it will reset it to the very first {\tt DATA} statement, but you can give
+it a line number to set the data pointer to the first data item on that
+line.
+\begin{verbatim}
+  100 RESTORE 1010
+  110 READ day$
+  120 PRINT day$
+  130 RESTORE 1010
+  140 READ day$
+  150 PRINT day$
+  160 END
+\end{verbatim}
+With the above set of data statements, this will print {\tt Monday} twice.
+
+Data \meek statements can be anywhere in your program -- they are ignored
+by the interpreter and only used for {\tt READ} instructions, however
+this does mean that we need to track line numbers to remember where
+our data is if using the {\tt RESTORE} instruction\dots\ I recommend
+that you place your data at the very end of your program with high line
+numbers to make it easier to work out where the data is and to keep track
+of it.
+
+Here is an example which calculates the average of a set of numbers:
+\begin{verbatim}
+  100 REM Calculate the average of a set of numbers and print
+  110 REM	out numbers below, equal to or above average
+  120 REM
+  130 READ numNumbers
+  140 DIM table (numNumbers)
+  150 FOR i = 0 to numNumbers - 1 CYCLE
+  160   READ table (i)
+  170   REPEAT
+  180 //
+  190 REM Average
+  200 //
+  210 average = 0
+  220 FOR i = 0 to numNumbers - 1 CYCLE
+  230   average = average + table (i)
+  240   REPEAT
+  250 average = average / numNumbers
+  260 PRINT "The average is "; average
+  270 //
+  280 // Print all numbers
+  290 //
+  300 FOR i = 0 to numNumbers - 1 CYCLE
+  310   PRINT "Number "; i + 1; " = "; table (i); " ";
+  320   IF table (i) < average THEN PRINT "below"
+  330   IF table (i) > average THEN PRINT "above"
+  340   IF table (i) = average THEN PRINT "average"
+  350   REPEAT
+  360 END
+ 1000 DATA 10
+ 1010 DATA 1,2,3,4,5,6,7,8,9,0
+\end{verbatim}

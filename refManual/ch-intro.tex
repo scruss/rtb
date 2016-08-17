@@ -1,0 +1,55 @@
+\chapter{Introduction}
+\section{Audience}
+\index{Audience}
+This manual is aimed at people who may already have a familiarity with
+BASIC or other high-level languages. It's mainly a reference manual
+for the language, but that are a few examples and tutorials.
+
+The manual will assume that you understand most common principles
+of computing and know concepts like volatile and non-volatile storage
+and so on and how to type some commands into your computer.
+
+And although it's a reference manual, there are one or two little
+examples and tutorials along the way for you to try out.
+
+\section{Conventions Used in this Manual}
+\index{Conventions}
+Keeping things simple is the aim here, so there are only really 3
+things to look out for\footnote{OK, Possibly four as there may be
+the occasional footnote at the bottom of a page, so look out for them
+too.}. The first is that anything you may need to type into a computer
+running RTB, or anything it prints will be in this {\tt typewriter}
+style font. The second is that anything of some importance, such as a
+name of an algorithm is emphasised {\em like this}.
+
+The \meek final thing to look out for is a warning, or just something
+that may be important to remember. It's represented by a warning
+exclamation point in a box to the side of the text. As demonstrated in
+this paragraph.\newpage
+\index{Warning}
+
+If you know what you're doing, here are some brief differences between
+RTB and a ``classic'' BASIC:
+\begin{itemize}
+\item RTB does not allow multiple statements on one line.
+One statement per line only.
+\item Variable names can be of almost any length and upper/lower case
+is significant.
+\item {\tt IF} statements must have {\tt THEN} (So no {\tt IF\dots\
+num = 4}, or {\tt IF\dots\ GOTO 10}, it must be the full {\tt IF\dots\
+THEN GOTO 10}, or {\tt IF\dots\ THEN a = 7}, etc.)
+\item In {\tt FOR} loops, there is no {\tt NEXT} instruction -- it's
+replaced by the {\tt CYCLE\dots REPEAT} construct.
+\item Named procedures and functions. (Which can be called recursively)
+\item Local variables inside user-defined procedures and functions.
+\item A single looping construct ({\tt CYCLE\dots REPEAT}) which can be
+modified with {\tt FOR}, {\tt WHILE} and {\tt UNTIL} constructs.
+\item {\tt BREAK} and {\tt CONTINUE} as part of the looping construct.
+\item Arrays start at zero and go up to and include the number in the
+{\tt DIM} statement. ie. the {\tt DIM} statement specifies the size of
+the array plus one.
+\end{itemize}
+Additionally (where supported) the graphical systems may well be new or
+different to you. RTB incorporates simple block/line graphics as well
+as turtle graphics using a variety of angle modes (degrees, radians
+and clock).

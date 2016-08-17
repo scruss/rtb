@@ -1,0 +1,86 @@
+\chapter{Built-in Variables and Constants}
+\index{Variables!Built-in}
+\index{Constants!Built-in}
+
+RTB has several variables and constants that are built-in. Some of these
+variables are read-only\footnote{You may be forgiven for thinking that a
+read-only variable should be called a constant, but some of them change!},
+and some can be assigned to.
+
+\section{Read only built-in variables}
+\index{Variables!Read Only}
+\begin{description}
+\item[{\tt DATE\$}]\index{DATE\$} This returns a string with the current date
+in the following format: {\tt YYYY-MM-DD}. For example: {\tt 2012-02-14}.
+\item[{\tt TIME\$}]\index{TIME\$} This returns a string with
+the current time in the following format: {\tt HH:MM:SS}. For example:
+{\tt 18:05:45}.
+\item[{\tt PI}, {\tt PI2}]\index{PI}\index{PI2} These return the
+approximate value of $\pi$ and $\frac{1}{2}\pi$ respectively.
+\item[{\tt TIME}]\index{TIME} This returns a number which
+represents the time that your program has been running in milliseconds.
+\setcounter{seedVariable}{\value{page}}
+\item[{\tt GET}]\index{GET} This pauses program execution
+and waits for you to type a single character on the keyboard, then
+returns the value of the key pressed as a numeric variable. (ASCII)
+\item[{\tt GET\$}]\index{GET\$} This pauses program execution
+and waits for you to type a single character on the keyboard, then
+returns the key as a string variable.
+\item[{\tt INKEY}]\index{INKEY} This is similar to {\tt
+GET} except that program execution is not paused; If no key is pressed,
+then -1 is returned.
+\item[{\tt TRUE}]\index{TRUE} Represents the logical ``true'' value.
+\item[{\tt FALSE}]\index{FALSE} Represents the logical ``false'' value.
+\item[{\tt TWIDTH}]\index{TWIDTH} The width in characters of the display.
+\item[{\tt TTHEIGHT}]\index{TTHEIGHT} The height in characters of the display.
+\item[{\tt GWIDTH}]\index{GWIDTH} The width in graphical pixels of the display.
+\item[{\tt GHEIGHT}]\index{HEIGHT} The hight in graphical pixels of the display.
+\end{description}
+
+\section{Constants representing colours}
+\index{Constants!Colours}
+{\tt Black}, {\tt Navy}, {\tt Green}, {\tt Teal}, {\tt Maroon}, {\tt
+Purple}, {\tt Olive}, {\tt Silver},
+{\tt Grey}, (or {\tt Gray}), 
+{\tt Blue}, {\tt Lime},
+{\tt Aqua}, (or {\tt Cyan}),
+{\tt Red},
+{\tt Pink}, (or {\tt Magenta} or {\tt Fuchsia}),
+{\tt Yellow}, {\tt White}.
+
+\section{Constants representing Keyboard Keys}
+\index{Constants!Keyboard Keys}
+{\tt KeyUp}, {\tt KeyDown}, {\tt KeyLeft}, {\tt KeyRight}, {\tt KeyIns},
+{\tt KeyHome}, {\tt KeyDel}, {\tt KeyEnd}, {\tt KeyPgUp}, {\tt KeyPgDn},
+{\tt KeyF1}, {\tt KeyF2}, {\tt KeyF3}, {\tt KeyF4}, {\tt KeyF5}, {\tt
+KeyF6}, {\tt KeyF7}, {\tt KeyF8}, {\tt KeyF9}, {\tt KeyF10}, {\tt KeyF11},
+{\tt KeyF12}.
+
+\section{Read/Write built-in variables}
+\index{Variables!Read/Write}
+\begin{description}
+\item[{\tt SEED}]\index{SEED} This can be assigned to to initialise
+the random number generator, or you can read it to find the current
+seed.
+\item[{\tt TCOLOUR}]\index{TCOLOUR} Set/Read the current text foreground
+colour.
+\item[{\tt BCOLOUR}]\index{BCOLOUR} Set/Read the current text background
+colour.
+\item[{\tt HTAB}]\index{HTAB} Set/Read the current text cursor horizontal
+position.
+\item[{\tt VTAB}]\index{VTAB} Set/Read the current text cursor vertical
+position.
+\item[{\tt COLOUR}]\index{COLOUR} Set/Read the current graphics plot colour.
+\item[{\tt TANGLE}]\index{TANGLE} Set/Read the current turtle angle.
+\item[{\tt TCOLOR}]\index{TCOLOR} Alias for {\tt TCOLOUR}
+\item[{\tt BCOLOR}]\index{BCOLOR} Alias for {\tt BCOLOUR}
+\item[{\tt COLOR}]\index{COLOR} Alias for {\tt COLOUR}
+\end{description}
+
+A brief example:
+\begin{verbatim}
+  10 REM Check some built-in Variables
+  20 today$ = DATE$
+  30 PRINT "Today's date is: "; today$
+  40 END
+\end{verbatim}

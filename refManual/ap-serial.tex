@@ -1,0 +1,66 @@
+\chapter{Serial Port Programming}
+\index{Serial Ports}
+RTB supports a few instructions to allow you to send and receive data
+over serial ports. These go by various names, a common one being RS232.
+
+Moderns PCs often lack a directly connected serial port, so you may have
+to use a USB connected device. Using them is the same whether directly
+connected or via USB. The important thing to know is the name of the
+serial device. For directly connected devices, this might be something
+like "/dev/ttyS1", or for USB devices it might be something like
+"/dev/ttyUSB0". Occasionally you have find a "/dev/ttyACM0" for some
+older USB devices.
+
+\section{SOPEN}
+\index{Serial Ports!SOPEN}
+This opens a serial device and makes it available for our use. It
+takes the name of the serial port and the speed as an argument and
+returns a number (the {\em handle}) of the device. We can use this
+handle to reference the device and allow us to open several devices at
+once. Example:
+\begin{verbatim}
+  100 arduino = SOPEN ("/dev/ttyUSB0", 115200)
+\end{verbatim}
+The following baud rates are recognised: {\tt 50, 75, 110, 134, 150,200,
+300, 600, 1200, 1800, 2400, 19200, 38400 57600, 115200 and 230400},
+but do check your local PC and devices capabilities. The device is
+always opened with the data format set to 8 data bits, 1 stop bit and
+no parity. All handshaking is turned off.
+
+\section{SCLOSE}
+\index{Serial Ports!SCLOSE}
+This closes a serial port and frees up and resources used by it. It's
+not strictly necessary to do this when you end your program, but it is
+considered good practice.
+\begin{verbatim}
+  120 SCLOSE (arduino)
+\end{verbatim}
+
+\section{SGET, SGET\$}
+\index{Serial Ports!SGET}\index{Serial Ports!SGET\$}
+Fetch a single byte of data from an open serial port and return the
+data as either a number or a single-character string. This function will
+pause program execution for up to 5 seconds if no data is available. If
+there is still not data after 5 seconds, the function will return -1 or
+an empty string.
+\begin{verbatim}
+  130 d = SGET (arduino)
+  140 key$ = SGET$ (arduino)
+\end{verbatim}
+
+\section{SPUT, SPUT\$}
+\index{Serial Ports!SPUT}\index{Serial Ports!SPUT\$}
+Send a single byte of data, or a string of characters to an open serial port.
+\begin{verbatim}
+  130 SPUT (arduino, byte)
+  140 SPUT$ (arduino, "Hello")
+\end{verbatim}
+
+\section{SREADY}
+\index{Serial Ports!SREADY}
+Returns the number of characters avalable to be read from an open serial
+port. This can be used to poll the device to avoid stalling your program
+when there is no data avlable to be read.
+\begin{verbatim}
+  210 IF SREADY (arduino) THEN PROC getSerialData
+\end{verbatim}

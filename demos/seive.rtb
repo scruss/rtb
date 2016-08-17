@@ -1,0 +1,76 @@
+//
+// The Sieve of Eratosthenes
+//
+cls
+print
+print "Calculate Prime numbers by the Sieve of Eratosthenes"
+print "===================================================="
+print
+print
+CYCLE 
+  PRINT 
+  PRINT "Low or High resolution graphics ? ";  
+  k$ = GET$
+  IF (k$ = "l") OR (k$ = "L") THEN 
+    GR 
+    BREAK 
+  ENDIF 
+  IF (k$ = "h") OR (k$ = "H") THEN 
+    HGR 
+    BREAK 
+  ENDIF 
+REPEAT 
+//
+nPrimes = GWIDTH * (GHEIGHT - 1) - 1
+DIM primes(nPrimes)
+FOR i = 0 TO nPrimes CYCLE 
+  primes(i) = TRUE
+REPEAT 
+//
+PROC display(nPrimes)
+WAIT (1)
+PROC sieve(nPrimes)
+PROC display(nPrimes)
+VTAB = THEIGHT - 1
+END 
+//
+// Procedure to display the primes array
+//
+DEF PROC display(num)
+LOCAL i, x, y
+FOR i = 0 TO num CYCLE 
+  y = INT (i / GWIDTH)
+  x = i - y * GWIDTH
+  IF primes(i) THEN 
+    COLOUR = Yellow
+  ELSE 
+    COLOUR = Black
+  ENDIF 
+  PLOT (x, GHEIGHT - y - 1)
+REPEAT 
+ENDPROC 
+//
+// Procedure to calculate the Sieve
+//   Uses the global array primes()
+//
+DEF PROC sieve(num)
+LOCAL i, limit, pointer
+// Initialise
+primes(0) = FALSE
+primes(1) = FALSE
+limit = SQRT (num)
+pointer = 1
+CYCLE 
+  // Find the next number flagged as a prime
+  pointer = pointer + 1
+  WHILE  NOT primes(pointer) CYCLE 
+    pointer = pointer + 1
+    IF pointer > limit THEN ENDPROC 
+  REPEAT 
+  // Now strike-off all its multiples
+  FOR i = pointer + pointer TO num STEP pointer CYCLE 
+    primes(i) = FALSE
+  REPEAT 
+  PROC display(num)
+  UPDATE
+REPEAT 

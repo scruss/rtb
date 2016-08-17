@@ -1,0 +1,29 @@
+//
+// Draw Circles
+//
+CLS 
+CYCLE 
+  PRINT 
+  PRINT "Low or High resolution graphics ? ";  
+  k$ = GET$
+  IF (k$ = "l") OR (k$ = "L") THEN 
+    GR 
+    BREAK 
+  ENDIF 
+  IF (k$ = "h") OR (k$ = "H") THEN 
+    HGR 
+    BREAK 
+  ENDIF 
+REPEAT 
+//
+CYCLE 
+  COLOUR = RND (16)
+  x = RND (GWIDTH)
+  y = RND (GHEIGHT)
+  r = RND (GWIDTH / 4)
+  f = RND (2)
+  CIRCLE (x, y, r, f)
+  UPDATE
+  IF INKEY <> -1 THEN BREAK 
+REPEAT 
+END 

@@ -1,0 +1,148 @@
+\chapter{The computer}
+
+\section{What is a computer?}
+
+At the simplest level, we have a processor which controls everything,
+memory which holds our programs and data, a storage device which will
+remember our programs and data when the system is turned off, and a means
+to get data into the computer and to let us see what data and programmes
+are in the computer.
+
+In a little more detail, we have:
+
+\begin{description}
+
+\item[Processor] At the heart of the system is the processor. This
+has many different names -- for example, it's often called the CPU
+(Central Processing Unit) and sometimes known as a microprocessor. Some
+computers have more than one processor and these are often referred to as
+``cores''. For now, just thinking about a single processor is sufficient
+for our needs. Processor speeds are measured in a variety of ways,
+but we often refer to the base speed in cycles per second, or Hertz
+(Hz) 3 billion Hz (3,000,000,000Hz) is common today, but in the 1970s,
+1 million Hz was as fast as they went.
+\index{Processor}
+
+We often use names and letters to represent
+big numbers, so a million is called ``mega'' and a billion is often called
+``giga'' -- so 3 billion Hz is is three gigahertz, or 3GHz and so on. Fast
+forward to {\em Appendix A} for details of numbering names and sizes.
+
+\item[Memory] The processor needs somewhere to store programs and data
+and this is called the memory. It's sometimes called RAM, short for
+Random Access Memory -- random because the processor can access any
+part of it very quickly at random, rather than having to start at the
+beginning and work through sequentially. (Very old computers sometimes
+had to do this) We talk about memory capacity in terms of ``bytes''. A
+byte is the amount of memory required to store one character or one
+single digit. Modern computers have or millions, or even billions of
+bytes of memory. In the 1970s, computers only have thousands of bytes of
+memory. Again, fast forward to {\em Appendix A} for details of numbering
+names and sizes.
+\index{Memory}
+
+\item[Storage] Computer memory is ``volatile'' -- meaning that when you
+turn the computer off the memory will forget what was contained in it,
+so we need some form of non-volatile storage. This is often a disk drive
+made up from one of more spinning disks using magnetism to record the
+data, or sometimes it's made from a type of memory that is designed to
+not forget it's contents when switched off. This is often called ``flash''
+memory and comes in many formats -- plug-in devices, cards and so on.
+\index{Storage}\index{Volatile}\index{Non-Volatile}
+
+You may think it's a good idea to make all memory remember all the time,
+but there are trade-offs to be had. The main computer memory is fast. Very
+fast! The non-volatile memory on disks and flash devices are much slower
+by comparison, however they are also cheaper -- sometimes by a factor of
+1000 times or more. The trade-off is cost against speed.
+
+\item[Input and Output] We have a processor, memory and storage -- the
+other things we need are collectively called Input/Output devices,
+or just ``IO''. These are usually a screen to see what the computer
+is doing and a keyboard and possibly a mouse to give commands to the
+computer. Other devices might include a printer or plotter, a scanner
+and a rocket engine should be you lucky enough to be writing software
+for the next Mars mission\dots
+\end{description}
+\index{Input} \index{Output}
+
+\section{What is a computer program?}
+\index{Computer Program}
+
+Quite simply, a computer program is a set of instructions that the
+computer will execute one after the other to perform a given task.
+
+\noindent
+Here is an example of a human program: 
+\index{Human Program}
+
+\setcounter{teaMakePage}{\value{page}}
+\begin{enumerate}
+\item GO TO Kitchen.
+\item IF Kettle is empty THEN fill kettle with water.
+\item Turn kettle on.
+\item Get Mug. Get teabag. Put teabag into mug.
+\item Wait for kettle to boil.
+\item Pour boiling water into mug.
+\item Wait for tea to infuse.
+\item Remove teabag from mug.
+\item Add milk to mug.
+\item Enjoy mug of tea.
+\item IF more tea required THEN GO TO step 2.
+\end{enumerate}
+
+Computer programs are not really much different from this, although
+they're unlikely to make you a good mug of tea\dots Also, just as there
+are many ways to make a mug of tea, then there are just as many ways to
+write a computer program!
+
+Program instructions tell the computer to do many different things -
+for example, one instruction might be to print some data to the screen,
+another instruction might be to calculate the result of an equation,
+another to store the result in memory, and so on. Instructions are available
+to allow you to enter data into the program, to perform a task over and
+over again, counting, calculating and so on.
+
+{\samepage \noindent \index{Hello World}
+Here is an example of a very simple RTB program:
+\begin{verbatim}
+  10 PRINT "Hello, world"
+  20 END
+\end{verbatim}
+What do you think it will do?}
+
+\index{Line number}
+The number 10 is called the line number. RTB doesn't
+mind if numbers are missing -- the numbers are there for our benefit,
+not the computers, so when we type programs into the computer, we can
+use the line numbers to keep track of where we are, and if we forget to
+enter a line, then we can use a number we're not already used in-between
+the lines we need. So, here, if we wanted to print something more, we
+can enter it in using line number 15 and the computer will insert it
+in-between lines 10 and 20.
+
+We can also use the line number to tell the computer to jump to a
+different location in the program. So, if we were to enter this:
+\begin{verbatim}
+  15 GOTO 10
+\end{verbatim}
+then when we run the program, the computer will do exactly as its told to
+do, it will execute line 10, printing {\tt Hello, world} to the screen,
+then it would execute line 15 which tells it to jump back, or {\tt GOTO}\index{GOTO} to line 10
+again. Computers are not clever\dots but they are very good at doing
+exactly what they are told to do -- over and over again.
+
+\noindent
+This is our program so-far:
+\begin{verbatim}
+  10 PRINT "Hello, world"
+  15 GOTO 10
+  20 END
+\end{verbatim}
+
+This is probably the simplest program that you'll ever see. Variants
+of the ``Hello, world'' program have been written for almost as long as
+computers have existed.
+
+In the next chapter we'll look at how we actually enter this program into
+a computer running the RTB system and see how to make it work.

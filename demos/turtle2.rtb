@@ -1,0 +1,9 @@
+  100 HGR 
+  110 PENDOWN 
+  120 COLOUR = Purple
+  130 FOR i = 2 TO GWIDTH CYCLE 
+  140   MOVE (i)
+  150   RIGHT (92)
+  160   WAIT (0)
+  170 REPEAT 
+  180 END 

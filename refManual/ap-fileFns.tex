@@ -1,0 +1,116 @@
+\chapter{File Handling functions}
+\index{File Handling}
+
+RTB supports reading and writing of files stored on local non-volatile
+media (typically disk drives). There are two main methods of file
+accessing; sequential and random-access. When you open a file, it is
+assigned a numerical {\em ``handle''} and you need to use this handle when
+performing other operations on the file. RTB allows you to open multiple
+files at the same time, up to a limit set by the implementation. (Usually
+8). Each open file will have a unique handle, so you must keep track of
+them when manipulating files.
+
+All data written to, or read from a file is textual in nature. You can not
+write binary data in RTB. Numbers are stored as literal strings as if they
+have been printed on the screen. (And in particular, the format set by
+the {\tt NUMFORMAT} instruction is used when printing numbers into files).
+
+\section{Sequential Access}
+\index{File Handling!Sequential}
+Sequential file access is straightforward. You open a file, then read from
+it, or write to it. You can reset the file pointer to the start of the
+file using the {\tt REWIND} instruction, so you can write data to a file,
+then {\tt REWIND}, then read the data back again. There is no structure
+to the file other than what you write into it yourself. ie. if you want
+to read the 15th line in a file, then you need to read the preceding 14
+lines unless you know the exact line length of each line, then you can use
+the {\tt SEEK} instruction to jump to that line, but if the lines are all
+different length, then you need to read the while file from start to end,
+
+\section{Random Access}
+\index{File Handling!Random}
+Random file access is similar to sequential, however it additionally
+allows you to split your file into fixed-size records, then
+you can {\tt SEEK} to any of these records at random.
+
+There are no special instructions that make a file any different when in
+sequential mode to random mode other than those you code yourself. You
+must plan the record size (in bytes or characters) before hand and you
+must always seek to the correct record in your file before reading or
+writing. Each record is then treated like a small sequential file and you
+can read and write into it - however you must make sure that you don't
+write more data into the record than you have planned for, otherwise
+that data will overflow into the next record with unpredictable results.
+
+Random access files can be wasteful of disk space, but they can also
+be a fast an versatile method of storing and retrieving data. Most modern
+databases use this technique to store data for fast retrieval.
+
+\section{RTB Instructions and functions}
+
+\subsection*{OPEN (filename\$)}
+\index{File Handling!OPEN}
+The {\tt OPEN} function opens a file and makes it available for reading
+or writing and returns the numeric handle assiciated with the file. The
+file is created if it doesn't exist, or if it does exist the file pointer
+is positioned at the start of the file. To append data to the end of the
+file, you need to use the {\tt FFWD} instruction after opening the file.
+
+\subsection*{CLOSE (handle)}
+\index{File Handling!CLOSE}
+The {\tt CLOSE} instruction closes a file after use and makes sure all
+data is securely written to the storage medium.
+
+\subsection*{EOF (handle)}
+\index{File Handling!EOF}
+The {\tt EOF} function returns a {\tt TRUE} or {\tt FALSE} indication
+of the state of the file pointer when reading the file. It is an error
+to try to read past the end of the file, so if you are reading a file
+with unknown data in it, then you must check at well defined intervals
+(e.g. before each {\tt INPUT\#}.
+
+\subsection*{REWIND (handle)\\FFWD (handle)}
+\index{File Handling!REWIND}\index{File Handling!FFWD}
+Theese instructions move the file pointer back to the start of the file
+or to the end of the file respectively. If you want to append data to
+the end of an existing file, then you need to call {\tt FFWD} before
+writing the data.
+
+\subsection*{SEEK (handle, offset)}
+\index{File Handling!SEEK}
+The {\tt SEEK} instruction moves the file pointer to any place in the
+file. It can even move the file pointer beyond the end of the file in
+which case the file is extended. The argument suppled to {\tt SEEK}
+is an absolute number of bytes from the start of the file. If you are
+using random access files and want to access the 7th record in the file,
+then you need to multiple your record size by 7 to get the final location
+to seek to.
+
+\subsection*{PRINT\# handle, \dots}
+\index{File Handling!PRINT\#}
+The {\tt PRINT\#} instruction acts just like the regular {\tt PRINT}
+instruction except that it sends data to the file identified by the
+supplied file-handle rather than to the screen. Numbers are formatted
+according to the settings of {\tt NUMFORMAT}. It is strongly recommended
+to only print one item per line if you are going to read those items
+back into an RTB program again.
+\begin{verbatim}
+  100 myFile = OPEN ("testfile.dat")
+  110 FFWD (myFile)
+  120 PRINT# myFile, "Appended line"
+  130 CLOSE (myFile)
+\end{verbatim}
+
+\subsection*{INPUT\# handle, variable}
+\index{File Handling!INPUT\#}
+This works similarly to the regular {\tt INPUT} instruction, but reads
+from the file identified by the supplied file-handle rather than from the
+keyboard. Note that unlike the regular keyboard {\tt INPUT} instruction,
+{\tt INPUT\#} can only read {\em one} variable at a time.
+\begin{verbatim}
+  100 myFile = OPEN ("testfile.dat")
+  110 WHILE NOT EOF (myFile)
+  120   INPUT# myFile, line$
+  130    PRINT line$
+  140 CLOSE (myFile)
+\end{verbatim}

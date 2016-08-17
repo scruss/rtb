@@ -1,0 +1,20 @@
+//
+// Saw:
+//    Simple turtle graphics 
+//
+HGR 
+PENDOWN 
+COLOUR = Red
+FOR i = 1 TO 12 CYCLE 
+  PROC sawtooth
+  RIGHT (30)
+REPEAT 
+END 
+//
+DEF PROC sawtooth
+RIGHT (45)
+MOVE (65)
+LEFT (135)
+MOVE (40)
+RIGHT (90)
+ENDPROC 

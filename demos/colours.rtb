@@ -1,0 +1,41 @@
+REM Colour test program
+//
+DIM c$(15)
+FOR i = 0 TO 15 CYCLE 
+  READ c$(i)
+REPEAT 
+//
+CLS 
+VTAB = 4
+PRINT "Colour test program"
+PRINT "==================="
+VTAB = 8
+FOR bg = 0 TO 15 CYCLE 
+  FOR i = 0 TO 1 CYCLE 
+    BCOLOUR = 0
+    TCOLOUR = bg
+    PRINT c$(bg);  
+    FOR fg = 0 TO 7 CYCLE 
+      PROC testcolour(fg + i * 8, bg)
+    REPEAT 
+    HTAB = 0
+    VTAB = VTAB + 1
+  REPEAT 
+REPEAT 
+TCOLOUR = 15
+BCOLOUR = 0
+HVTAB (0, THEIGHT - 1)
+END 
+//
+// Procedure to print some text in the colours supplied
+//
+DEF PROC testcolour(f, b)
+TCOLOUR = f
+BCOLOUR = b
+PRINT c$(f);  
+ENDPROC 
+//
+DATA " Black  ", " Navy   ", " Green  ", " Teal   "
+DATA " Maroon ", " Purple ", " Olive  ", " Silver "
+DATA " Grey   ", " Blue   ", " Lime   ", " Aqua   "
+DATA " Red    ", " Pink   ", " Yellow ", " White  "

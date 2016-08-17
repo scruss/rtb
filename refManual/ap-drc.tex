@@ -1,0 +1,90 @@
+\chapter{DRC - Drogon Remote Control Programming}
+\index{DRC}
+RTB supports the Drogon Remote Control protocol which is used to connect
+to devices which interpret the DRC protocol. DRC is typically used with
+small micro-controllers such as the Arduino and it allows the control of
+the digital and analogue input/output pins to be brought to RTB.
+
+\section{DrcOpen}
+\index{DRC!DrcOpen}
+This opens a connection to a DRC compatible device and makes it
+available for our use. It takes the name of the device as an argument
+and returns a number (the {\em handle}) of the device. We can use this
+handle to reference the device and allow us to open several devices at
+once. Some implementations may have IO devices with fixed named. Example:
+\begin{verbatim}
+  100 arduino = DrcOpen ("/dev/ttyUSB0")
+  110 gpio = DrcOpen ("RPI")
+\end{verbatim}
+On the Raspberry Pi, you may use the string: {\tt "RPI"}, {\tt RPI-GPIO}
+or {\tt RPI-SYS} as the device to open and this will open the on-board
+GPIO pins in native wiringPi, GPIO or Sys modes.
+
+\section{DrcClose}
+\index{DRC!DrcClose}
+This closes a connection to a DRC device and frees up and resources used
+by it. It's not strictly necessary to do this when you end your program,
+but it is considered good practice.
+\begin{verbatim}
+  120 DrcClose (arduino)
+\end{verbatim}
+
+\section{DrcPinMode}
+\index{DRC!DrcPinMode}
+This configures the mode of a pin on the remote DRC device. It takes
+an argument which specifies the mode of the pin - input, output or PWM
+output. Other modes may be available, depending on the device and its 
+capabilities. Note that not all devices support all functions.
+\begin{verbatim}
+  220 DrcPinMode (arduino, 4, 0)
+\end{verbatim}
+In this example, we're setting pin 4 to be used for input. The modes are;
+\begin{description}
+\item[0] Input
+\item[1] Output
+\item[2] PWM Output
+\end{description}
+
+\section{DrcDigitalRead}
+\index{DRC!DrcDigitalRead}
+This function allows you to read the state of a digital pin on the remote
+device. You may need to set the pin mode beforehand to make sure it's
+configured as an input device. It will return {\tt TRUE} or {\tt FALSE}
+to indicate an input being high or low respectively.
+\begin{verbatim}
+  200 DrcPinMode (arduino, 12, 0) // Set pin 12 to input
+  210 if DrcDigitalRead (arduino, 12) THEN PROC ButtonPushed
+\end{verbatim}
+
+\section{DrcDigitalWrite}
+\index{DRC!DrcDigitalWrite}
+This procedure sets a digital pin to the supplied value - 0 for off or
+1 for on. As with {\tt DigitalRead}, you may need to set the pin mode
+beforehand.
+\begin{verbatim}
+  310 DrcPinMode (arduino, 2, 1) // Set pin 2 to output mode
+  320 DrcDigitalWrite (arduino, 2, 1) // Set output High (on)
+  330 Wait (1)
+  330 DrcDigitalWrite (arduino, 2, 0) // Set output Low (off)
+\end{verbatim} 
+
+\section{DrcAnalogRead}
+\index{DRC!DrcAnalogRead}
+This function reads an analog channel and returns the result. The value
+returned will depend on the hardware you're connected to - for example
+the Arduino will return a number from 0 to 1023 representing an input
+voltage between 0 and 5 volts. Other devices may have different ranges.
+\begin{verbatim}
+  250 voltage = DrcAnalogRead (arduino, 4) / 1023 * 5  // Get voltage on pin 4
+\end{verbatim}
+
+\section{DrcPwmWrite}
+\index{DRC!DrcPwmWrite}
+This procedure outputs a PWM waveform on the selected pin. The pin must
+be configured for PWM mode beforehand, and depending on the device you
+are using, then not all pins on a device may support PWM mode. The value
+set should be between 0 and 255.
+\begin{verbatim}
+  310 DrcPinMode (arduino, 11, 2) // Set pin 11 to PWM output mode
+  320 DrcPwmWrite (arduino, 11, 200)
+\end{verbatim} 

@@ -1,0 +1,86 @@
+//
+// shapes:
+//    Draw random shapes - circles, rectangles, triangle or ellipses
+//
+CLS 
+CYCLE 
+  PRINT 
+  PRINT "Low or High resolution graphics ? ";  
+  k$ = GET$
+  IF (k$ = "l") OR (k$ = "L") THEN 
+    GR 
+    BREAK 
+  ELSE 
+  ENDIF 
+  IF (k$ = "h") OR (k$ = "H") THEN 
+    HGR 
+    BREAK 
+  ELSE 
+  ENDIF 
+REPEAT 
+//
+CYCLE 
+  shape = RND (4)
+  SWITCH (shape)
+    CASE 0
+      PROC doRectangle
+    ENDCASE 
+    CASE 1
+      PROC doCircle
+    ENDCASE 
+    CASE 2
+      PROC doTriangle
+    ENDCASE 
+    CASE 3
+      PROC doEllipse
+    ENDCASE 
+  ENDSWITCH 
+  UPDATE
+  IF INKEY <> -1 THEN BREAK 
+REPEAT 
+END 
+//
+DEF PROC doRectangle
+LOCAL x, y, w, h, f
+rgbCOLOUR (RND (256), RND (256), RND (256))
+f = RND (2)
+x = RND (GWIDTH)
+y = RND (GHEIGHT)
+w = RND (GWIDTH / 4)
+h = RND (GHEIGHT / 4)
+RECT (x, y, w, h, f)
+ENDPROC 
+//
+DEF PROC doTriangle
+LOCAL x1, x2, x3, y1, y2, y3, f
+rgbCOLOUR (RND (256), RND (256), RND (256))
+f = RND (2)
+x1 = RND (GWIDTH)
+x2 = RND (GWIDTH)
+x3 = RND (GWIDTH)
+y1 = RND (GHEIGHT)
+y2 = RND (GHEIGHT)
+y3 = RND (GHEIGHT)
+TRIANGLE (x1, y1, x2, y2, x3, y3, f)
+ENDPROC 
+//
+DEF PROC doCircle
+LOCAL x, y, r, f
+rgbCOLOUR (RND (256), RND (256), RND (256))
+f = RND (2)
+x = RND (GWIDTH)
+y = RND (GHEIGHT)
+r = RND (GWIDTH / 4)
+CIRCLE (x, y, r, f)
+ENDPROC 
+//
+DEF PROC doEllipse
+LOCAL cx, cy, rx, ry, f
+rgbCOLOUR (RND (256), RND (256), RND (256))
+f = RND (2)
+cx = RND (GWIDTH)
+cy = RND (GHEIGHT)
+rx = RND (GWIDTH / 4)
+ry = RND (GHEIGHT / 4)
+ELLIPSE (cx, cy, rx, ry, f)
+ENDPROC 

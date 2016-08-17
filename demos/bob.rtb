@@ -1,0 +1,12 @@
+PROC bob(3)
+PRINT "  no more bottles of beer on the wall."
+END 
+DEF PROC bob(bottles)
+PRINT bottles;  " bottles of beer on the wall, ";  
+PRINT bottles;  " bottles of beer!"
+PRINT "Take one down, pass it around and there'll be"
+bottles = bottles - 1
+IF bottles = 0 THEN ENDPROC 
+PRINT "   ";  bottles;  " bottles of beer on the wall."
+PROC bob(bottles)
+ENDPROC 

@@ -1,0 +1,28 @@
+//
+// ack:
+//    This is the Achermann test - it's a a sort of compiler
+//    recustion stress test. I'm using it as just that, and
+//    as a baseline benchmark for some run-time tuning.
+//
+NUMFORMAT (5, 0)
+PRINT 
+PRINT "The Ackermann test. Expect this to run in about"
+PRINT "0.5 seconds on a 2GHz Intel CPU."
+PRINT 
+PRINT "Start"
+start = TIME
+FOR y = 0 TO 3 CYCLE 
+  FOR x = 0 TO 7 CYCLE 
+    z = FN ackermann(y, x)
+    PRINT z;  " ";  
+  REPEAT 
+  PRINT 
+REPEAT 
+NUMFORMAT (5, 3)
+PRINT "Done in ";  (TIME - start) / 1000;  " seconds."
+END 
+//
+DEF FN ackermann(m, n)
+IF m = 0 THEN  = n + 1
+IF n = 0 THEN  = FN ackermann(m - 1, 1)
+ = FN ackermann(m - 1, FN ackermann(m, n - 1))

@@ -1,0 +1,134 @@
+//
+// clock:
+//    Example analogue clock program
+//
+//    Gordon Henderson, July 2012
+//
+PROC setup
+next = TIME + 1000
+CYCLE 
+  PROC drawClockFace
+  PROC drawClockHands
+  UPDATE 
+  WAIT ((next - TIME) / 1000)
+  next = next + 1000
+REPEAT 
+END 
+//
+// setup:
+//    Initialise our clock and variuos dimensions to make
+//    it work over different display sizes (within reason!)
+//
+DEF PROC setup
+LOCAL t$
+HGR 
+rd = GHEIGHT / 2 - 1
+thickness = GHEIGHT / 48
+barLen = thickness * 4
+ORIGIN (GWIDTH / 2, GHEIGHT / 2)
+DEG 
+t$ = TIME$
+WHILE TIME$ = t$ CYCLE 
+REPEAT 
+ENDPROC 
+//
+// drawClockFace:
+//    Display our clock face
+//
+DEF PROC drawClockFace
+LOCAL m, px1, py1, px2, py2, d
+//
+// Erase the screen.
+//    This is the best way to do it to avoid flicker
+//
+COLOUR = Black
+RECT (0 - GWIDTH, 0 - GHEIGHT, GWIDTH, GHEIGHT, 1)
+//
+// Outer dial
+//
+COLOUR = White
+CIRCLE (0, 0, rd, 1)
+COLOUR = Black
+CIRCLE (0, 0, rd - thickness, 1)
+//
+// The four big indicators for 12,15,30 and 45
+//
+COLOUR = White
+RECT (0 - thickness / 2, rd - barLen, thickness, barLen, 1)
+RECT (rd - barLen, 0 - thickness / 2, barLen, thickness, 1)
+RECT (0 - thickness / 2, 0 - rd, thickness, barLen, 1)
+RECT (0 - rd, 0 - thickness / 2, barLen, thickness, 1)
+//
+// Smaller 5 and 1 minute ticks
+//
+FOR m = 0 TO 59 CYCLE 
+  px1 = SIN (m * 6) * rd
+  py1 = COS (m * 6) * rd
+  IF (m MOD 5) = 0 THEN 
+    d = barLen
+  ELSE 
+    d = barLen / 2
+  ENDIF 
+  px2 = SIN (m * 6) * (rd - d)
+  py2 = COS (m * 6) * (rd - d)
+  LINE (px1, py1, px2, py2)
+REPEAT 
+ENDPROC 
+//
+// drawClockHands:
+//	Output out 3 hands
+//
+DEF PROC drawClockHands
+LOCAL t$, h, m, s
+LOCAL hAngle, mAngle, sAngle, p
+LOCAL x0, y0, x1, y1
+//
+t$ = TIME$
+h = VAL (LEFT$ (t$, 2))
+m = VAL (MID$ (t$, 3, 2))
+s = VAL (RIGHT$ (t$, 2))
+IF (h > 12) THEN h = h - 12
+//
+// The Hour hand
+//
+COLOUR = Red
+hAngle = (h * 30) + (m * 0.5)
+x0 = SIN (hAngle) * (rd * 0.75)
+y0 = COS (hAngle) * (rd * 0.75)
+FOR p = -3 TO 3 STEP 0.2 CYCLE 
+  x1 = SIN (hAngle + p) * (rd * 0.7)
+  y1 = COS (hAngle + p) * (rd * 0.7)
+  LINE (0, 0, x1, y1)
+  LINETO (x0, y0)
+REPEAT 
+//
+// Minute Hand
+//
+mAngle = m * 6
+x0 = SIN (mAngle) * (rd * 0.9)
+y0 = COS (mAngle) * (rd * 0.9)
+FOR p = -1 TO 1 STEP 0.2 CYCLE 
+  x1 = SIN (mAngle + p) * (rd * 0.85)
+  y1 = COS (mAngle + p) * (rd * 0.85)
+  LINE (0, 0, x1, y1)
+  LINETO (x0, y0)
+REPEAT 
+//
+// Second Hand
+//
+COLOUR = Blue
+sAngle = s * 6
+x0 = SIN (sAngle) * (rd * 0.2)
+y0 = COS (sAngle) * (rd * 0.2)
+x1 = SIN (sAngle) * (rd * 0.95)
+y1 = COS (sAngle) * (rd * 0.95)
+LINE (0 - x0, 0 - y0, x1, y1)
+CIRCLE (0, 0, rd * 0.1, 0)
+CIRCLE (0, 0, rd * 0.05, 1)
+//
+// Text
+//
+HVTAB (TWIDTH / 2 - 4, THEIGHT / 8)
+PRINT t$;  
+//
+ENDPROC 

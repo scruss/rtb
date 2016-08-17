@@ -1,0 +1,36 @@
+//
+// turtle5:
+//    Simple animated turtle test
+//
+HGR 
+DEG 
+lastA = 0
+cycle
+FOR a = 0 TO 360 CYCLE 
+  TANGLE = lastA
+  PROC fourSpirals(0)
+  TANGLE = a
+  PROC fourSpirals(1)
+  UPDATE 
+  lastA = a
+REPEAT 
+repeat
+END 
+//
+DEF PROC fourSpirals(c)
+LOCAL i, j, x
+PENUP 
+MOVETO (GWIDTH / 2, GHEIGHT / 2)
+MOVE (50)
+COLOUR = 0
+PENDOWN 
+FOR i = 1 TO 4 CYCLE 
+  IF c <> 0 THEN COLOUR = 10 + i
+  x = 1
+  FOR j = 1 TO 100 CYCLE 
+    MOVE (10)
+    RIGHT (100 - x)
+    x = x + 1
+  REPEAT 
+REPEAT 
+ENDPROC 

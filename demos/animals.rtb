@@ -1,0 +1,203 @@
+// Animal learning game.
+//    A classic demonstration of random access file handling
+//
+animalsFile$ = "animals.dat"
+recordSize = 128 // Characters
+vowel$ = "aeiouAEIOU"
+PROC setup
+PROC instructions
+CYCLE 
+  node = 1
+  PRINT 
+  PRINT "I currently know ";  animals;  " animals."
+  PRINT 
+  PRINT "Think of an animal..."
+  CYCLE 
+    IF FN getQuestion(node) THEN 
+      PROC doQuestion
+    ELSE 
+      PROC tryAnimal
+      BREAK 
+    ENDIF 
+  REPEAT 
+REPEAT 
+END 
+//
+// FN getQuestion
+//    Read in the next question - return FASLE if no more questions
+//
+DEF FN getQuestion(node)
+LOCAL q$
+SEEK (aFile, node * recordSize)
+INPUT# aFile, q$
+IF LEFT$ (q$, 2) = "Q:" THEN 
+  question$ = RIGHT$ (q$, LEN (q$) - 2)
+  INPUT# aFile, yesNode
+  INPUT# aFile, noNode
+  IF RIGHT$ (question$, 1) <> "?" THEN question$ = question$ + "?"
+   = TRUE
+ELSE 
+  animal$ = RIGHT$ (q$, LEN (q$) - 2)
+   = FALSE
+ENDIF 
+//
+// PROC doQuestion:
+//	Output the question and get the yes or no reply.
+//
+DEF PROC doQuestion
+PRINT "  ";  question$;  " ";  
+IF FN getYN THEN 
+  node = yesNode
+ELSE 
+  node = noNode
+ENDIF 
+ENDPROC 
+//
+// PROC tryAnimal:
+//    We've run out of questions - see if we have guessed the animal
+//
+DEF PROC tryAnimal
+PRINT "Is the animal you're thinking of ";  FN aan(animal$);  " ? ";  
+IF FN getYN THEN 
+  PRINT 
+  PRINT "I got it right!"
+  PRINT "Want to play again? ";  
+  IF  NOT FN getYN THEN 
+    PRINT "OK. Thanks for playing."
+    CLOSE (aFile)
+    END 
+  ENDIF 
+ELSE 
+  PROC newAnimal
+ENDIF 
+ENDPROC 
+//
+// PROC newAnimal
+//    Get and Add a new animal into the database
+//
+DEF PROC newAnimal
+PRINT 
+PRINT "OK. I give up... I don't know."
+CYCLE 
+  PRINT "What was the animal you were thinking of ";  
+  INPUT newAnimal$
+REPEAT UNTIL newAnimal$ <> ""
+PRINT 
+PRINT "Ahhh... ";  FN aan(newAnimal$);  ". OK."
+PRINT 
+PRINT "Now type in a question that would distinguish"
+PRINT "  ";  FN aan(newAnimal$);  " from ";  FN aan(animal$)
+CYCLE 
+  INPUT newQuestion$
+REPEAT UNTIL newQuestion$ <> ""
+PRINT "And the answer for ";  FN aan(newAnimal$);  " would be ? ";  
+yn = FN getYN
+//
+// Add in the new animal
+//    Start by adding the new animal to the end of the file
+//
+SEEK (aFile, recordSize * nodes)
+PRINT# aFile, "A:";  newAnimal$
+//
+// then add the existing animal after that
+//
+SEEK (aFile, recordSize * (nodes + 1))
+PRINT# aFile, "A:";  animal$
+//
+// Now overwrite the last animal guessed with the new question
+//
+SEEK (aFile, recordSize * node)
+PRINT# aFile, "Q:";  newQuestion$
+IF yn THEN 
+  PRINT# aFile, nodes
+  PRINT# aFile, nodes + 1
+ELSE 
+  PRINT# aFile, nodes + 1
+  PRINT# aFile, nodes
+ENDIF 
+//
+// Finally, update the records at the start of the file
+//
+animals = animals + 1
+nodes = nodes + 2
+SEEK (aFile, 0)
+PRINT# aFile, animals
+PRINT# aFile, nodes
+ENDPROC 
+//
+// FN getYN:
+//	Wait for and get a single character, Y for yes, or N for no.
+//	Return TRUE (yes) or FASLE (no)
+DEF FN getYN
+LOCAL c$, yn
+CYCLE 
+  c$ = GET$
+REPEAT UNTIL (c$ = "y") OR (c$ = "Y") OR (c$ = "n") OR (c$ = "N")
+yn = (c$ = "y") OR (c$ = "Y")
+IF yn THEN 
+  PRINT "Yes"
+ELSE 
+  PRINT "No"
+ENDIF 
+ = yn
+//
+// FN aan:
+//    Little function to return a word prefixed by 'a' or 'an'
+//
+DEF FN aan(word$)
+LOCAL start$, a$, i
+a$ = "a "
+start$ = LEFT$ (word$, 1)
+FOR i = 1 TO LEN (vowel$) CYCLE 
+  if MID$ (vowel$, i - 1, 1) = start$ THEN
+    a$ = "an "
+    break
+  endif
+REPEAT 
+ = a$ + word$
+//
+// PROC setup
+//	Open the file and initialise it if it's empty
+//
+// The structure of each record is as follows: The first line is
+// either a question or an animal - the string is prefixed by Q:
+// or A:. If it's a question, then there are 2 more lines, the first
+// line is the "Yes" record ID, and the 2nd line is the "No" record ID.
+//
+DEF PROC setup
+aFile = OPEN (animalsFile$)
+IF EOF (aFile) THEN 
+  SEEK (aFile, recordSize * 0)
+  PRINT# aFile, 2
+  PRINT# aFile, 4
+  SEEK (aFile, recordSize * 1)
+  PRINT# aFile, "Q:Does it live in the water"
+  PRINT# aFile, 2
+  PRINT# aFile, 3
+  SEEK (aFile, recordSize * 2)
+  PRINT# aFile, "A:Frog"
+  SEEK (aFile, recordSize * 3)
+  PRINT# aFile, "A:Moose"
+  animals = 2
+  nodes = 4
+ELSE 
+  INPUT# aFile, animals
+  INPUT# aFile, nodes
+ENDIF 
+ENDPROC 
+//
+// PROC instructions
+//    Output simple instructions to the screen
+//
+DEF PROC instructions
+CLS 
+PRINT 
+PRINT "Aninal learning game"
+PRINT "===================="
+PRINT 
+PRINT "You think of an animal and I'll try to guess it."
+PRINT 
+PRINT "Just press 'Y' or 'N' to answer my questions, but if you have"
+PRINT "to type anything more in, then remember to press the 'Enter' key"
+PRINT "when done."
+ENDPROC 

@@ -1,0 +1,176 @@
+\chapter{Conditionals: IF \dots\ THEN \dots}
+\index{Conditionals!If\dots Then}
+RTB has a comprehensive {\tt IF} statement, but unlike some
+BASICs, you must use the corresponding {\tt THEN} statement
+with it.
+\begin{verbatim}
+  100 REM IF Statement example
+  110 dummy = 42
+  120 IF dummy < 100 THEN GOTO 200
+  130 PRINT "it's >= 100"
+  140 END
+  200 IF dummy = 42 THEN dummy = dummy + 1
+  210 PRINT "Dummy is "; dummy
+  220 END
+\end{verbatim}
+
+The expression inside the {\tt IF \dots\ THEN} statement is evaluated
+as if it's an assignment expression. If the result if 0, then its 
+treated as FALSE, anything else is treated as TRUE. See the section
+on operator precedence in the variables chapter for more details.
+
+\section{Multiple lines}
+\index{IF!Multiple Lines}
+We can extend the {\tt IF} statement over multiple lines, if
+required. The way you do this is by making sure there is nothing after
+the {\tt THEN}\index{IF!THEN} statement and ending it all with the {\tt
+ENDIF}\index{IF!ENDIF} statement as this short example demonstrates:
+\begin{verbatim}
+  100 REM Program fragment to demonstrate multi-line IF
+  110 test = 42
+  120 IF test = 15 THEN
+  130   PRINT "Test was not 15"
+  140   PRINT "We will end now"
+  150   END
+  160 ENDIF
+  170 PRINT "Test was 15"
+  180 PRINT "We can go home now"
+  190 END
+\end{verbatim}
+
+\section{IF \dots THEN \dots ELSE \dots ENDIF}
+\index{IF!ELSE}
+We can modify the {\tt IF...THEN} construct with additional keywords;
+{\tt ELSE} and {\tt ENDIF} They can provide an alternative set of
+instructions to follow without using a {\tt GOTO} instruction and can
+help to make your programs more readable.
+
+The following example demonstrates:
+\begin{verbatim}
+  100 REM Guess
+  110 secret = 42
+  120 INPUT "Guess the number? ", guess
+  130 IF guess = secret THEN GOTO 500
+  140 IF guess < secret THEN
+  150    PRINT "Too low"
+  160 ELSE
+  170    PRINT "Too high"
+  180 ENDIF
+  190 GOTO 120
+  500 PRINT "Well done"
+  510 END
+\end{verbatim}
+There are a few simple rules to observe when using multi-line
+{\tt IF...THEN...ELSE} statements.
+\begin{itemize}
+\item {\tt IF, THEN} and {\tt ELSE} must be on separate lines, with
+nothing after the {\tt THEN} statement (Some programming languages allow
+you to put them on the same lines, RTB doesn't)
+\item The {\tt IF, ELSE} and {\tt ENDIF} statements must be at the start
+of a line. ie. you can not have them after a {\tt THEN} statement.
+\item If you are executing a {\tt GOTO} instruction after a {\tt THEN}
+instruction then you need to use both {\tt THEN} and {\tt GOTO}. Some
+variants of BASIC allow just one or the other, but not RTB. These {\em
+do not work} in RTB:
+\begin{verbatim}
+100 IF a = 5 THEN 120
+120 IF b = 7 GOTO 155
+\end{verbatim}
+\end{itemize}
+
+\chapter{Conditionals: SWITCH and CASE\dots}
+\index{Conditionals}
+There is another form of conditionals commonly known as the {\em
+switch statement} although it's actual representation varys from one
+programming language to another.
+
+Essentially, the {\tt SWITCH} instruction allows you to test a value
+against many different values, and execute different code. It can often
+simplify the writing of multiple {\tt IF}\dots {\tt THEN}\dots {\tt
+ELSE} statements.
+
+It's probably easier to explain by example:
+\begin{verbatim}
+  100 INPUT a
+  110 SWITCH (a)
+  120   CASE 1, 2
+  130     PRINT "You entered 1 or 2"
+  140   ENDCASE 
+  150   //
+  160   CASE 7
+  170     PRINT "You entered 7"
+  180   ENDCASE 
+  190   //
+  200   DEFAULT 
+  210     PRINT "You entered something else"
+  220   ENDCASE 
+  230 ENDSWITCH 
+  240 END 
+\end{verbatim}
+Here, line 110 starts it off. We can put any expression or variable inside
+the brackets. What follows is lines of {\tt CASE} statements and each
+{\tt CASE} has one or more constant numbers after it. These numbers are
+matched against the value of the {\tt SWITCH} instruction and if there is
+a match then the code after the {\tt CASE} is executed up to the {\tt
+ENDCASE} instruction and at that point, control is transfered to the
+statement {\em after} the matching {\tt ENDSWITCH} statement. Optionally
+you can use the instruction {\tt DEFAULT} and this section will be executed
+if there are no other matches.
+
+Like {\tt IF}\dots {\tt THEN}\dots {\tt ELSE}, {\tt SWITCH} has a few
+simple rules:
+\begin{itemize}
+\item Every {\tt SWITCH} must have a matching {\tt ENDSWITCH} statement.
+\item Every {\tt CASE} or {\tt DEFAULT} statement must have a matching
+{\tt ENDCASE} statement.
+\item Statements after a {\tt CASE} statement must not run-into another
+{\tt CASE} statement. (Some programming languages do allow this, but not RTB)
+\item The constants after the {\tt CASE} statement (and the expression
+in the {\tt SWITCH} statement) can be either numbers or strings, but
+you can't mix both.
+\end{itemize}
+
+Finally, if you are reading some older BASIC programs, you may see a
+construct like {\tt ON}\dots{\tt GOTO}\dots Our {\tt SWITCH} statement is
+the modern way to handle code like this and if you are converting older
+programs it should be relatively simple to use the newer {\tt SWITCH}
+instructions to help eliminate the issues keeping track of line numbers.  
+An example:
+
+Old Way:
+\begin{verbatim}
+  100 ON a GOTO 200,300,400
+  120 PRINT "a was NOT 1, 2 or 3"
+  130 STOP
+  200 PRINT "a was 1"
+  210 GOTO 500
+  300 PRINT "a was 2"
+  310 GOTO 500
+  400 PRINT "a was 3"
+  410 GOTO 500
+  500 PRINT "Do something else now"
+\end{verbatim}
+\begin{samepage}
+New way:
+\begin{verbatim}
+  100 SWITCH (a)
+  110   CASE 1
+  120     PRINT "a was 1"
+  130   ENDCASE
+  140   CASE 2
+  150     PRINT "a was 2"
+  160   ENDCASE
+  170   CASE 3
+  180     PRINT "a was 3"
+  190   ENDCASE
+  200   DEFAULT
+  210     PRINT "a was NOT 1, 2 or 3"
+  220     STOP
+  230   ENDCASE
+  240 ENDSWITCH
+  250 PRINT "Do something else now"
+\end{verbatim}
+\end{samepage}
+So the new way is a bit longer and more to type, but it has the advantage
+of not relying on line numbers and if we use the indentation as a guide,
+we can quickly scan down to find the matching {\tt ENDSWITCH} statement.

@@ -1,0 +1,127 @@
+REM Circles
+//
+HGR 
+//
+numCircles = 30
+w = GHEIGHT / 32
+rmax = SQRT (GWIDTH / 2 * GWIDTH / 2 + GHEIGHT / 2 * GHEIGHT / 2) + w
+//
+DIM cx(numCircles), cy(numCircles), speed(numCircles), col(numCircles)
+DIM size(numCircles), pause(numCircles),rmax(numCircles)
+//
+FOR i = 1 TO numCircles CYCLE 
+  speed(i) = 0
+  size(i) = 0
+  pause(i) = int (i * numCircles * 0.1)
+REPEAT 
+//
+CYCLE 
+  //CLS 
+  colour = black
+  rect (0,0,gwidth,gheight,true)
+  PROC updateCircles
+  PROC drawCircles
+  UPDATE 
+  WAIT (1 / 60)
+REPEAT 
+//
+DEF PROC updateCircles
+LOCAL circ
+FOR circ = 1 TO numCircles CYCLE 
+  IF pause(circ) <> 0 THEN 
+    pause(circ) = pause(circ) - 1
+    IF pause(circ) = 0 THEN  // Create new circle
+      cx(circ) = RND (GWIDTH * 0.8) + GWIDTH * 0.1
+      cy(circ) = RND (GHEIGHT * 0.8) + GHEIGHT * 0.1
+      speed(circ) = RND (5) + 1
+      col(circ) = RND (15) + 1
+      size(circ) = w + 1
+    ENDIF 
+  ELSE 
+    //
+    size(circ) = size(circ) + speed(circ)
+    IF size(circ) > rmax THEN 
+      pause(circ) = RND (100) + 1
+    ENDIF 
+  ENDIF 
+REPEAT 
+ENDPROC 
+//
+DEF PROC drawCircles
+LOCAL circ
+proc sort
+FOR circ = 1 TO numCircles CYCLE 
+  IF pause(circ) = 0 THEN 
+    COLOUR = col(circ)
+//    CIRCLE (cx(circ), cy(circ), size(circ), true)
+    CIRCLE (cx(circ), cy(circ), size(circ), false)
+    CIRCLE (cx(circ), cy(circ), size(circ) + 1, false)
+    CIRCLE (cx(circ), cy(circ), size(circ) + 2, false)
+//    colour = 0
+//    circle (cx(circ), cy(circ), size(circ) - w, true)
+  ENDIF 
+REPEAT 
+ENDPROC 
+//
+//
+// PROC sort:
+//    Sort an array of numbers
+//
+DEF PROC sort
+LOCAL i, j, k, l, m
+m = numCircles DIV 2
+WHILE m > 0 CYCLE 
+  j = m
+  WHILE j <= numCircles CYCLE 
+    i = j - m
+    WHILE i >= 0 CYCLE 
+      k = i + m
+      IF size(k) >= size(i) THEN 
+        PROC swp(i, k)
+      ELSE 
+        BREAK 
+      ENDIF 
+      i = i - m
+    REPEAT 
+    j = j + 1
+  REPEAT 
+  m = m DIV 2
+REPEAT 
+ENDPROC 
+//
+DEF PROC swp(i, j)
+LOCAL tmp
+tmp = cx(i)
+cx(i) = cx(j)
+cx(j) = tmp
+//
+tmp = cy(i)
+cy(i) = cy(j)
+cy(j) = tmp
+//
+tmp = speed(i)
+speed(i) = speed(j)
+speed(j) = tmp
+//
+tmp = col(i)
+col(i) = col(j)
+col(j) = tmp
+//
+tmp = size(i)
+size(i) = size(j)
+size(j) = tmp
+//
+tmp = pause(i)
+pause(i) = pause(j)
+pause(j) = tmp
+//
+ENDPROC 
+//
+def proc dump
+local i
+numformat (4,0)
+for i = 1 to numCircles cycle
+  print size(i);
+repeat
+endproc
+

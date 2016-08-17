@@ -1,0 +1,30 @@
+HGR 
+NUMFORMAT (5, 1)
+PENDOWN 
+oa = 0
+CYCLE 
+  FOR ang = 0 TO 360 STEP 0.1 CYCLE 
+    old = TIME
+    PROC spir(Black, oa)
+    PROC spir(Purple, ang)
+    now = TIME
+    HVTAB (0, 0)
+    PRINT ang;  " ";  now - old;  " ";  1000 / (now - old);  
+    UPDATE 
+    oa = ang
+  REPEAT 
+REPEAT 
+END 
+//
+DEF PROC spir(col, ang)
+LOCAL i
+COLOUR = col
+PENUP 
+MOVETO (GWIDTH / 2, GHEIGHT / 2)
+TANGLE = 0
+PENDOWN 
+FOR i = 2 TO GWIDTH CYCLE 
+  MOVE (i)
+  RIGHT (ang)
+REPEAT 
+ENDPROC 

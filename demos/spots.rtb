@@ -1,0 +1,49 @@
+HGR 
+DIM tgs(2)
+tgs(2) = 15
+tgs(0) = 0
+DIM spots(GWIDTH, GHEIGHT)
+mx = GWIDTH * GHEIGHT * 0.95
+FOR x = 0 TO GWIDTH - 1 CYCLE 
+  FOR y = 0 TO GHEIGHT - 1 CYCLE 
+    spots(x, y) = 0
+  REPEAT 
+REPEAT 
+//
+i = 0
+dir = 1
+target = tgs(dir + 1)
+CYCLE 
+  x = RND (GWIDTH)
+  y = RND (GHEIGHT)
+  z = spots(x, y)
+  IF z <> tgs(dir + 1) THEN 
+    z = z + dir
+    spots(x, y) = z
+    COLOUR = z
+    PLOT (x, y)
+  ENDIF 
+  IF (i MOD 1000) = 0 THEN 
+    WAIT (0)
+    IF FN count(target) THEN 
+      dir = dir * -1
+      target = tgs(dir + 1)
+    ENDIF 
+  ENDIF 
+  i = i + 1
+REPEAT 
+END 
+//
+DEF FN count(target)
+LOCAL x, y, c
+c = 0
+FOR x = 0 TO GWIDTH CYCLE 
+  FOR y = 0 TO GHEIGHT CYCLE 
+    IF spots(x, y) = target THEN c = c + 1
+  REPEAT 
+REPEAT 
+IF c > mx THEN 
+   = TRUE
+ELSE 
+   = FALSE
+ENDIF 

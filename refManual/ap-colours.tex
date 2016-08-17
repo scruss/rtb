@@ -1,0 +1,105 @@
+\chapter{Colours}\index{Colours}
+
+To keep thing simple, RTB has 16 colours pre-definied for your use. You
+can use numbers to represent them, or use the built-in names. The
+colours are:
+
+\index{Black}\index{Navy}\index{Green}\index{Teal}\index{Maroon}
+\index{Purple}\index{Olive}\index{Silver}\index{Grey}\index{Blue}
+\index{Lime}\index{Aqua}\index{Red}\index{Pink}\index{Yellow}\index{White}
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\hline
+0 & 1 & 2 & 3 & 4 & 5 & 6 & 7\\
+\colorbox{rtb-black}{\hspace{10mm}}&
+\colorbox{rtb-navy}{\hspace{10mm}}&
+\colorbox{rtb-green}{\hspace{10mm}}&
+\colorbox{rtb-teal}{\hspace{10mm}}&
+\colorbox{rtb-maroon}{\hspace{10mm}}&
+\colorbox{rtb-purple}{\hspace{10mm}}&
+\colorbox{rtb-olive}{\hspace{10mm}}&
+\colorbox{rtb-silver}{\hspace{10mm}}\\
+Black & Navy & Green & Teal & Maroon & Purple & Olive & Silver\\
+\hline
+\hline
+8 & 9 & 10 & 11 & 12 & 13 & 14 & 15\\
+\colorbox{rtb-grey}{\hspace{10mm}}&
+\colorbox{rtb-blue}{\hspace{10mm}}&
+\colorbox{rtb-lime}{\hspace{10mm}}&
+\colorbox{rtb-aqua}{\hspace{10mm}}&
+\colorbox{rtb-red}{\hspace{10mm}}&
+\colorbox{rtb-fuchsia}{\hspace{10mm}}&
+\colorbox{rtb-yellow}{\hspace{10mm}}&
+\colorbox{rtb-white}{\hspace{10mm}}\\
+Grey & Blue & Lime & Aqua & Red & Pink & Yellow & White\\
+\hline
+\end{tabular}
+\end{center}
+Note that the colours here are just representative and might not be what
+you see on the video screen you are using to run RTB on.
+
+These colours are avalable in both text and graphics modes.
+
+If these 16 colours are not sufficient, then it's possible to use
+the full colour pallet of the computer system you are using - this is
+usually a 24-bit system with 8 bits for each of Red, Green and Blue,
+giving a maximum of 16777216 different colous avalable.
+
+To use the full-colour mode, you need to use the built-in procedure
+\begin{itemize}
+\item {\tt rgbColour (red, green blue)}
+\end{itemize}
+where the values of {\tt red, green} and {\tt blue} are numbers from 0
+to 255 inclusive.
+
+The extended RGB colours are avalable in graphics modes only. Text is
+limited to the standard 16 colours.
+
+\section{A Text Colour Demo}
+\index{Text Screen!colour Demo}
+There should be a program supplied with your RTB installation called
+"colours" which will demo the basic colours in text mode. {\tt LOAD
+colours} should obtain it for you, but if it's not avalable then:
+\begin{samepage}
+\begin{verbatim}
+  100 REM Colour test program
+  110 //
+  120 DIM c$(15)
+  130 FOR i = 0 TO 15 CYCLE 
+  140   READ c$(i)
+  150 REPEAT 
+  160 //
+  170 CLS 
+  180 VTAB = 4
+  190 PRINT "Colour test program"
+  200 PRINT "==================="
+  210 VTAB = 10
+  220 FOR bg = 0 TO 15 CYCLE 
+  230   FOR i = 0 TO 1 CYCLE 
+  240     BCOLOUR = 0
+  250     TCOLOUR = bg
+  260     PRINT c$(bg);  
+  270     FOR fg = 0 TO 7 CYCLE 
+  280       PROC testcolour(fg + i * 8, bg)
+  290     REPEAT 
+  300     PRINT 
+  310   REPEAT 
+  320 REPEAT 
+  330 TCOLOUR = 15
+  340 BCOLOUR = 0
+  345 END 
+  350 //
+  360 // Procedure to print some text in the colours supplied
+  370 //
+  380 DEF PROC testcolour(f, b)
+  390 TCOLOUR = f
+  400 BCOLOUR = b
+  410 PRINT c$(f);  
+  420 ENDPROC 
+  900 //
+  901 DATA " Black  ", " Navy   ", " Green  ", " Teal   "
+  902 DATA " Maroon ", " Purple ", " Olive  ", " Silver "
+  903 DATA " Grey   ", " Blue   ", " Lime   ", " Aqua   "
+  904 DATA " Red    ", " Pink   ", " Yellow ", " White  "
+\end{verbatim}
+\end{samepage}

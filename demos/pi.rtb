@@ -1,0 +1,51 @@
+REM Print pi to 799 decimal places (800 digits)
+REM See https://cs.uwaterloo.ca/~alopez-o/math-faq/mathtext/node12.html
+//
+// Adapted from Tinybasic to RTB -GH-
+//
+start = TIME
+a = 10000
+b = 0
+c = 2800
+e = 0
+DIM store(3000)
+//
+WHILE (b - c) <> 0 CYCLE 
+  store(b) = INT (a / 5)
+  b = b + 1
+REPEAT 
+//
+CYCLE 
+  d = 0
+  g = c * 2
+  IF g = 0 THEN BREAK 
+  b = c
+  CYCLE 
+    d = d + store(b) * a
+    g = g - 1
+    store(b) = d MOD g
+    d = INT (d / g)
+    g = g - 1
+    b = b - 1
+    IF b = 0 THEN BREAK 
+    d = d * b
+  REPEAT 
+  c = c - 14
+  PROC p4(INT (e + d / a))
+  e = d MOD a
+REPEAT 
+PRINT 
+NUMFORMAT (6,3)
+PRINT "Time taken: "; (TIME - start)/ 1000; " seconds."
+END 
+//
+// Print argument in a field of 4 with leading zeros
+//
+DEF PROC p4(num)
+LOCAL s$
+s$ = STR$ (num)
+WHILE LEN (s$) < 4 CYCLE 
+  s$ = "0" + s$
+REPEAT 
+PRINT s$;  
+ENDPROC 

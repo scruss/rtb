@@ -1,0 +1,56 @@
+\chapter{Numerical Functions}
+\index{Numerical Functions}
+
+\begin{description}
+\item[{\tt RND (range)}]\index{RND}
+This function returns a random number based on the value of {\tt range}.
+If {\tt range} is zero, then the last random number generated is returned,
+if {\tt range} is 1, then a random number from 0 to 1 is returned,
+otherwise a random number from 0 up to, but not including {\tt range}
+is returned.
+\item[{\tt SIN (angle)}]\index{SIN}
+Returns the sine of the given {\tt angle}.
+\item[{\tt ASIN (x)}]\index{ASIN}
+Returns the arc sine of the supplied argument {\tt x}
+\item[{\tt COS (angle)}]\index{COS}
+Returns the cosine of the given {\tt angle}.
+\item[{\tt ACOS (x)}]\index{ACOS}
+Returns the arc cosine of the supplied argument {\tt x}
+\item[{\tt TAN (angle)}]\index{TAN}
+Returns the tangent of the given {\tt angle}.
+\item[{\tt ATAN (x)}]\index{ATAN}
+Returns the arc tangent of the supplied argument {\tt x}
+\item[{\tt ABS (x)}]\index{ABS}
+Returns the absolute value of the supplied argument {\tt x} ie. if the
+argument is negative, make it positive.
+\item[{\tt EXP (x)}]\index{EXP}
+Returns the value of $e^x$
+\item[{\tt LOG (x)}]\index{LOG}
+Returns the natural logarithm of {\tt x}
+\item[{\tt SQRT (x)}]\index{SQRT}
+Returns the square root of {\tt x}
+\item[{\tt SGN (x)}]\index{SGN}
+Returns -1 if the number is negative, 1 otherwise. (Zero is considered
+positive)
+\item[{\tt INT (x)}]\index{INT}
+Returns the integer part of {\tt x}
+\item[{\tt HASH (string, modulo)}]\index{HASH}
+Returns a hash value based on the {\tt string} and {\tt modulo}. The
+value returned is between 0 and {\tt modulo}. This function is used
+internally in RTB for the associative array indexing. The hash function
+is based on the function in {\em The Practice of Programming (HASH TABLES,
+pg. 57)}
+\item[{\tt MAX (x, y)}]\index{MAX}
+Returns the larger of {\tt x} or {\tt y}
+\item[{\tt MIN (x, y)}]\index{MIN}
+Returns the smaller of {\tt x} or {\tt y}
+\item[{\tt VAL (string\$)}]\index{VAL}
+Returns the number represented by {\tt string\$}. e.g. "1234" would
+return the number 1234.
+\item[{\tt ASC (string\$)}]\index{ASC}
+Returns the ASCII value represented by the first character of {\tt
+string\$}. e.g. "A" would return 65. It is the opposite of the {\tt
+CHR\$} function.
+\item[{\tt LEN (string\$)}]\index{LEN}
+Returns the number of characters in {\tt string\$}.
+\end{description}

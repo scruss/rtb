@@ -1,0 +1,2 @@
+#!/bin/sh
+valgrind --leak-check=yes --log-file=grind --track-origins=yes --leak-check=full --show-reachable=yes ./rtb

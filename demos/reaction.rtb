@@ -1,0 +1,36 @@
+//
+// Simple reaction timer
+//
+CLS 
+PRINT 
+PRINT "Simple reaction timer"
+PRINT "====================="
+PRINT 
+PRINT "Press the SPACE bar to start. There will"
+PRINT "then be a short delay, then the word GO"
+PRINT "will be printed - at that point, you need"
+PRINT "to press the SPACE bar again..."
+PRINT 
+PRINT "Press SPACE to start: ";  
+WHILE GET$ <> " " CYCLE 
+REPEAT 
+PRINT "Wait for it... ";  
+UPDATE 
+//
+future = TIME + 3000
+WHILE TIME < future CYCLE 
+REPEAT 
+//
+IF INKEY <> -1 THEN 
+  PRINT "No naughty typing ahead!"
+  STOP 
+ENDIF 
+//
+start = TIME
+PRINT "Go!"
+WHILE INKEY = -1 CYCLE 
+  // Do nothing
+REPEAT 
+etime = TIME
+PRINT "Your reaction time is ";  etime - start;  " milliseconds"
+END 

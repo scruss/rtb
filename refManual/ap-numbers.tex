@@ -1,0 +1,44 @@
+\chapter{Numbering Names and Formats}
+When numbers get very big or very small, it starts to become hard to
+represent them, so we have developed various way to express them. Then
+computers came along and things are now somewhat different and potentially
+confusing.
+
+The most common way to represent big or small numbers is to write them
+in groups of three digits and the International System of Units (SI,
+or Syst\`{e}me international d'unit\'{e}s) has a set of standard names
+to represent these, however there is a complication. The SI units use
+powers of 10 (so 1,000, 1,000,000 and so on), but computers count in
+twos (binary), so we've adopted the same names as the decimal units
+for computer sizes. A further complication is that some components
+manufacturers use the SI units to represent capacities because people
+are used to thinking in computers terms, but then find that the decimal
+terms are actually smaller. Disk drive manufacturers are frequently
+guilty  of this.
+
+The following table gives the most popular definitions you'll encounter:
+
+%\noindent
+\begin{tabular}[t]{|c|c|c|c|c|}
+\hline
+Name	& Kilo		& Mega		& Giga		& Tera			\\
+\hline
+Decimal	& 1,000		& 1,000,000	& 1,000,000,000	& 1,000,000,000,000	\\
+\hline
+	& 10$^3$	& 10$^6$	& 10$^9$	& 10$^{12}$		\\
+\hline
+\hline
+Computer& 1024		& 1,048,576	& 1,073,741,824 & 1,099,511,627,776	\\
+\hline
+	& 2$^{10}$	& 2$^{20}$	& 2$^{30}$	& 2$^{40}$		\\
+\hline
+\end{tabular}
+
+\noindent
+You may see reference to the term {\sl MiB} in some texts - this stands
+for Mebi - as in Mebibyte and it used to represent the binary forms. So
+2MB is 2,000,000 bytes, but 2MiB is 2,097,152 bytes.
+
+For the most part you can treat the decimal and binary forms as more or
+less the same. The MiB format isn't that common yet, but seems to be gaining
+popularity in some circles.

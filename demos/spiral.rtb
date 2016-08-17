@@ -1,0 +1,132 @@
+//
+// The Spiral turtle Workbench!
+//
+mxFps = 30
+HGR 
+NUMFORMAT (10, 1)
+angle = 0
+oldAngle = 0
+col = Yellow
+PROC welcome
+//
+CYCLE 
+  TANGLE = 0
+  PROC spiral(Black, oldAngle)
+  TANGLE = 0
+  PROC spiral(col, angle)
+  oldAngle = angle
+  HVTAB (0, 0)
+  PRINT angle;  " ";  
+  UPDATE 
+  k = GET
+  //
+  SWITCH (k)
+    CASE KeyRight
+      angle = angle + 0.1
+    ENDCASE 
+    //
+    CASE KeyUp
+      angle = angle + 1
+    ENDCASE 
+    //
+    CASE KeyPgUp
+      angle = angle + 10
+    ENDCASE 
+    //
+    CASE KeyLeft
+      angle = angle - 0.1
+    ENDCASE 
+    //
+    CASE KeyDown
+      angle = angle - 1
+    ENDCASE 
+    //
+    CASE KeyPgDn
+      angle = angle - 10
+    ENDCASE 
+    //
+    CASE 43 // +
+      col = col + 1
+      IF col = 16 THEN col = 1
+    ENDCASE 
+    //
+    CASE 45 // -
+      col = col - 1
+      IF col = 0 THEN col = 15
+    ENDCASE 
+    //
+  ENDSWITCH 
+  IF angle < 0 THEN angle = 360 + angle
+  IF angle > 360 THEN angle = angle - 360
+  //
+  IF k = ASC ("r") THEN 
+    PROC rotate
+  ENDIF 
+REPEAT 
+END 
+//
+DEF PROC spiral(c, a)
+LOCAL i
+COLOUR = c
+PENUP 
+MOVETO (GWIDTH / 2, GHEIGHT / 2)
+PENDOWN 
+FOR i = 2 TO GWIDTH CYCLE 
+  MOVE (i)
+  RIGHT (a)
+REPEAT 
+ENDPROC 
+//
+// PROC rotate:
+//    Rotate the current spiral, however max it out at our maximum
+//    just in-case we're on a speedy PC!
+//
+DEF PROC rotate
+LOCAL myAngle, last, key
+LOCAL start, dLay
+CYCLE 
+  last = 0
+  key = 0
+  FOR myAngle = 0 TO 360 CYCLE 
+    start = TIME
+    TANGLE = last
+    PROC spiral(Black, angle)
+    TANGLE = myAngle
+    PROC spiral(col, angle)
+    HVTAB (0, 0)
+    PRINT myAngle;  " "; 
+    last = myAngle
+    key = INKEY
+    IF key = ASC (" ") THEN BREAK 
+    d = 1000 / mxFps - (TIME - start)
+    if d > 0 then wait (d/1000)
+    update
+  REPEAT 
+  IF key = ASC (" ") THEN BREAK 
+REPEAT 
+HGR 
+ENDPROC 
+//
+DEF PROC welcome
+CLS 
+TCOLOUR = White
+BCOLOUR = Black
+VTAB = 4
+PRINT "Welcome to the Spiral Workbench"
+PRINT "==============================="
+PRINT 
+PRINT "Use the arrow keys and Page Up/Down"
+PRINT "keys to adjust the angle."
+PRINT 
+PRINT "Left/Right arrows will +/- by  0.1"
+PRINT "Up/Down arrows will    +/- by  1.0"
+PRINT "PgUp/PgDown will       +/- by 10.0"
+PRINT 
+PRINT "The 'r' key will start it rotating,"
+PRINT "  press space to stop it turning before you get dizzy!"
+PRINT 
+PRINT "Press the space key to start... ";  
+CYCLE 
+REPEAT UNTIL GET$ = " "
+CLS 
+ENDPROC 

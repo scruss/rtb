@@ -1,0 +1,53 @@
+//
+// ball:
+//    Bounce a ball round the screen
+//
+HGR 
+xPos = GWIDTH / 2
+yPos = GHEIGHT / 2
+xSpeed = 4
+ySpeed = 4
+xDir = 1
+yDir = 1
+r = GWIDTH / 42
+CYCLE 
+  PROC updateBall
+  key = INKEY
+  IF key = KeyUp THEN ySpeed = ySpeed + 1
+  IF (key = KeyDown) AND (ySpeed > 0) THEN ySpeed = ySpeed - 1
+  IF (key = KeyLeft) AND (xSpeed > 0) THEN xSpeed = xSpeed - 1
+  IF key = KeyRight THEN xSpeed = xSpeed + 1
+REPEAT 
+END 
+//
+// PROC ball:
+//    Draw our ball on the screen
+//
+DEF PROC ball(x, y, r, c)
+COLOUR = c
+CIRCLE (x, y, r, 1)
+ENDPROC 
+//
+// PROC updateBall:
+//    Update the ball position coordinates and
+//    it's screen position
+//
+DEF PROC updateBall
+LOCAL newX, newY
+newX = xPos + xSpeed * xDir
+IF (newX > (GWIDTH - r)) OR (newX < r) THEN 
+  newX = xPos
+  xDir = -1 * xDir
+ENDIF 
+newY = yPos + ySpeed * yDir
+IF (newY > (GHEIGHT - r)) OR (newY < r) THEN 
+  newY = yPos
+  yDir = -1 * yDir
+ENDIF 
+//
+PROC ball(xPos, yPos, r, Black)
+PROC ball(newX, newY, r, Pink)
+xPos = newX
+yPos = newY
+UPDATE
+ENDPROC 

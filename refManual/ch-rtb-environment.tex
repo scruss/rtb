@@ -1,0 +1,129 @@
+\chapter{The RTB environment}
+
+RTB is primarily designed to run on computers running Linux. In the
+fullness of time, both MS windows and Apple Mac versions may be made
+available, but for now it's Linux only.
+
+On the Raspberry Pi, there are some additional features to make use of
+the Pi's GPIO facility.
+\index{PC}\index{Apple}\index{Mac}\index{Raspberry Pi}\index{Linux}
+
+Starting RTB may vary from one Linux system another, however opening up
+a text (or command/shell) terminal and typing
+
+{\tt rtb}
+
+at the prompt will usually get things going for you.
+
+Whatever the system, once RTB has started it should look the same. There
+will be a keyboard to type commands into, this is connected to the main
+computer which should be connected to a screen or display of some sort. A
+Raspberry Pi may even be connected to your home TV set.
+
+When it's setup and ready, the screen should be clear apart from some
+introductory text and a prompt. It will probably look something like this:
+\begin{verbatim}
+  Return to Basic version 1.0 
+  Ready
+  >
+\end{verbatim}
+The ``$>$'' symbol is the prompt. It's presence means that RTB is ready to
+accept commands and program lines typed into it.
+\index{Prompt}
+
+\section{A quick introduction to BASIC}
+(You may wish to skip this if you are familiar with BASIC)
+
+BASIC and therefore RTB has three basic modes of operation: Immediate
+mode, program store mode and program run mode.
+\index{Modes}
+
+\section{Immediate mode}
+\index{Immediate mode}
+This is when commands you type into the system are executed immediately.
+You can use this mode to perform simple calculations, examine the state
+of variables and do other ``housekeeping'' tasks such as saving and loading
+your programs, and so on.
+
+\noindent
+A few examples:
+\begin{verbatim}
+  PRINT "Hello"
+  PRINT "My name is: Gordon Henderson"
+\end{verbatim}
+Calculator:
+\begin{verbatim}
+  PRINT 1+2
+  PRINT 1+2*3
+\end{verbatim}
+\index{Calculator}
+
+A \meek quick note about the calculator and symbols used. There isn't a
+proper divide symbol on your keyboard: $\div$ so we use the forward-slash
+character instead: {\tt /} and similarly rather than use the multiply
+character: $\times$ we use the asterisk: {\tt *}.
+
+\section{Run mode}\index{Run mode}
+This is simply when a program is running. To start a stored program,
+use the {\tt RUN} command. The program will stop running when it
+encounters a {\tt STOP} or {\tt END} instruction, or when an error is
+detected. You can stop a running program at any time by using the {\tt
+ESC}\footnote{Short for {\em Escape}} key at any time.
+
+\section{Stored program mode}
+\index{Stored program mode}
+
+This mode allows us to store a program in the computers memory which we
+can then execute over and over again. We differentiate immediate mode
+from stored program mode by giving each line we type a line number at
+the start of the line.
+
+\noindent
+To enter a simple program:
+\begin{verbatim}
+  10 PRINT 1 + 2 * 3
+  20 END
+\end{verbatim}
+Remember to press the {\tt ENTER} key after every line.
+
+To insert a line of code between two existing lines, you can use a
+line-number in-between the existing numbers, so using the example above,
+to insert a line we can type:
+\begin{verbatim}
+   5 PRINT "The answer to 1 + 2 * 3 is:"
+\end{verbatim}
+Verify it with the {\tt LIST} command -- and note that the computer has
+added line 5 before line 10, which is what you expect because computers
+are boringly good at counting. Run the program again and note the output.
+
+\noindent
+Add this line:
+\begin{verbatim}
+  15 PRINT "Six times seven is: "; 6 * 7
+\end{verbatim}
+list and run the program again. 
+
+A few final notes here: If you enter a new line with the same number as
+one already entered, it will delete the one stored and replace it with
+the one you entered, or if you enter a line number and nothing else
+(just press {\tt ENTER} after the line number, then it will delete any
+line with that number.
+
+It \meek is also good practice to regularly save your work.  Imagine the
+frustrations of having a power cut which will lose all your work
+so-far\dots
+
+\section{BASIC}
+\index{BASIC}
+This is the essence of BASIC programming. You can enter commands to
+be executed immediately, or enter program lines (with line numbers)
+which the computer will store for as long as it's turned on, or until
+you delete them by overwriting them, or using the {\tt NEW} command.
+
+List your programs with the {\tt LIST} command and run them with the
+{\tt RUN} command.
+
+When entering new programs it is suggested to start at line number 10
+and go up in 10s. That way, there is plenty of room to enter new lines
+in-between if required. (But there's always the {\tt RENUMBER}
+\index{RENUMBER} command if you run out of space)\\

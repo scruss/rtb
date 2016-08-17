@@ -1,0 +1,19 @@
+//
+// turtle3:
+//    simple turtle test
+//
+HGR 
+PENUP 
+MOVE (50)
+PENDOWN 
+FOR i = 1 TO 4 CYCLE 
+  COLOUR = 10 + i
+  x = 1
+  FOR j = 1 TO 100 CYCLE 
+    MOVE (10)
+    RIGHT (100 - x)
+    x = x + 1
+    UPDATE
+  REPEAT 
+REPEAT 
+END 
